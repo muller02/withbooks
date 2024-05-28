@@ -45,12 +45,12 @@
 				,b.cover
 				,bc.name
 		<if test="userId != null">
-			,ifnull(bm.user_id = #{userId}, 0) marked
+			,ifnull(bm.user_id, 0) marked
 		</if> 
 		from book b 
 			left join book_category bc 
 				on b.category_id = bc.id 
-			left join bookmark bm 
+			left join (select * from bookmark where user_id=#{userId}) bm
 				on b.id = bm.book_id 
 		where
 			b.id = #{bookId}

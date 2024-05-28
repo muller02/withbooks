@@ -263,7 +263,7 @@ function updateHTML(list) {
                 </div>
                 <div class="d:flex ai:center gap:1 ai:center">
                   <div class="d:flex ai:center">
-                    <span class="icon icon:chat_circle icon-size:2"></span>
+                    <span class="icon icon:user  icon-size:2"></span>
                     <span
                       class="fs:2 color:base-5 ml:1"
        
@@ -272,7 +272,7 @@ function updateHTML(list) {
                   </div>
                   <!--            <span>·</span>-->
                   <div class="d:flex ai:center">
-                    <span class="icon icon:chat_circle icon-size:2"></span>
+                    <span class="icon:calendar_check icon icon-size:2"></span>
                     <span
                       class="fs:2 color:base-5 ml:1"
      
@@ -284,7 +284,7 @@ function updateHTML(list) {
                 </div>
 
                 <div class="d:flex ai:center">
-                  <span class="icon icon:chat_circle icon-size:2"></span>
+                  <span class="icon icon:map_pin_fill  icon-size:2"></span>
                   <span
                     class="fs:2 color:base-5 ml:1"
         

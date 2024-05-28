@@ -24,10 +24,16 @@
     let clickedCategoryLi = e.target;
     if (clickedCategoryLi.tagName != "LI") return;
     
-    // 카테고리 값 설정
-    categoryValue = clickedCategoryLi.querySelector("span").dataset.id;
+    let clickedValue = clickedCategoryLi.querySelector("span").dataset.id;
 
-    searchSubmit();
+    if(categoryValue == clickedValue){
+      categoryValue = 0;
+      searchSubmit();
+    }else{
+      // 카테고리 값 설정
+      categoryValue = clickedValue;
+      searchSubmit();
+    }
   });
 
 // =============================================================

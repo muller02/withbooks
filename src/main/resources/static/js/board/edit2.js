@@ -2,8 +2,11 @@ window.addEventListener("load", function(e) {
 
     //======================= 기존 이미지 가져오기 =====================================
 
-    const params = new URLSearchParams(window.location.search);
-    const boardId = params.get("id");
+    // const params = new URLSearchParams(window.location.search);
+    // const boardId = params.get("id");
+
+    const fileInput = document.getElementById('file-input');
+    const boardId = fileInput.getAttribute('data-boardId');
 
     const url = `/with/debate/board/files/${boardId}`;
 
@@ -48,7 +51,7 @@ window.addEventListener("load", function(e) {
 
     //======================= 이미지 선택 =====================================
 
-    const fileInput = document.getElementById("file-input");
+    // const fileInput = document.getElementById("file-input");
 
     console.log(fileInput);
 

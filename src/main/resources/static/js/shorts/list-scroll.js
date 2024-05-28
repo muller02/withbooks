@@ -2,32 +2,38 @@
   // 마지막 게시글의 아이디 얻기
   let lastShorts = document.querySelector(".observe-target");
   
+  const urlParams = new URL(location.href).searchParams;
+  const id = urlParams.get('id');
+  
+  if(!id){
+
+    let observer = new IntersectionObserver((entries, observer)=>{
+      if(entries[0].isIntersecting){
+  
+        let lastSectionId = lastShorts.dataset.id;
+  
+        fetch(`/api/bookShorts/list?m=2&ls=${lastSectionId}`)
+        .then((response)=>response.json())
+        .then((data)=>{
+          
+          // 마지막 게시글에 가면 데이터 불러와서 글 늘리고
+          // 기존의 observe-target 지우고
+           // 기존의 observer를 해제
+           // 새로 만든 애를 observe
+          makeTemplate(data);
+  
+          
+          
+  
+          console.log(data)
+        })
+      }
+    }, { threshold: 1});
+    
+    observer.observe(lastShorts);
+  }
 
   
-  let observer = new IntersectionObserver((entries, observer)=>{
-    if(entries[0].isIntersecting){
-
-      let lastSectionId = lastShorts.dataset.id;
-
-      fetch(`/api/bookShorts/list?m=2&ls=${lastSectionId}`)
-      .then((response)=>response.json())
-      .then((data)=>{
-        
-        // 마지막 게시글에 가면 데이터 불러와서 글 늘리고
-        // 기존의 observe-target 지우고
-         // 기존의 observer를 해제
-         // 새로 만든 애를 observe
-        makeTemplate(data);
-
-        
-        
-
-        console.log(data)
-      })
-    }
-  }, { threshold: 1});
-  
-  observer.observe(lastShorts);
 
 
 

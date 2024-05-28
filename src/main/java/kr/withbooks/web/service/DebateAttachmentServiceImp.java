@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
@@ -14,6 +15,7 @@ import java.util.List;
 @Slf4j
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DebateAttachmentServiceImp implements DebateAttachmentService {
 
     private final DebateAttachmentRepository debateAttachmentRepository;
@@ -61,15 +63,9 @@ public class DebateAttachmentServiceImp implements DebateAttachmentService {
         if (CollectionUtils.isEmpty(ids)) {
             return;
         }
-
         debateAttachmentRepository.deleteAllByIds(ids);
     }
 
 
-
-//    @Override
-//    public List<DebateAttachment> getListById(Long boardId) {
-//        return debateAttachmentRepository.findAllById(boardId);
-//    }
 
 }

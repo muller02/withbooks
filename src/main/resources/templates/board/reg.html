@@ -8,8 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+    <title>위드북스</title>    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <link rel="stylesheet" type="text/css" href="/css/var.css" />
     <link rel="stylesheet" type="text/css" href="/css/util/background-color.css" />
     <link rel="stylesheet" type="text/css" href="/css/util/border-color.css" />
@@ -84,6 +83,10 @@
             appearance: none;
         }
 
+        .field-error {
+            border: 2px solid red;
+        }
+
     </style>
 </head>
 <body>
@@ -98,7 +101,7 @@
         <section class="pb:4 pt:4 pl:4 pr:4">
             <h1 class="d:none">토론 카드 작성</h1>
 
-            <form class="form-group h:auto" action="reg" method="post" enctype="multipart/form-data">
+            <form class="form-group h:auto" th:object="${board}" action="reg" method="post" enctype="multipart/form-data">
 
                 <div><input type="hidden" name="rid" th:value="${param.rid}"></div>
                 <div><input type="hidden" name="wid" th:value="${param.wid}"></div>
@@ -111,7 +114,7 @@
 
                 <h1 class="d:none">토론카드 등록 페이지</h1>
                 <p class="fw:3 fs:5 mr:3 ml:3 mb:4 mb:8 px:2">
-                    <span class="font-size:7"> 뉴렉위드,</span><br />
+                    <span class="font-size:7"></span><br />
                     토론 카드를 개설 해보세요 !
                 </p>
 
@@ -119,20 +122,24 @@
                     <h1 class="pt:3 bd-bottom w:10p h:1 fw:3">💡 토론주제</h1>
                     <div class="d:flex jc:center mt:2">
                         <div class="n-select">
-                            <select name="topicId">
+                            <select name="topicId" th:field="*{topicId}" th:errorclass="field-error" >
                               <option value=" ">토론주제</option>
                               <option th:each="val : ${topicList}"
-                                th:value="${val.id}" th:utext="${val.content}" th:selected="${selectedOption == val.id}">재홍이는 바지인가</option>
+                                th:value="${val.id}" th:utext="${val.content}" --th:selected="${selectedOption == val.id}">재홍이는 바지인가</option>
                             </select>
+
+                            <div class="pl:1 mt:3 fs:1 " style="color: var(--color-accent-1);" th:if="${#fields.hasErrors('topicId')}" th:errors="*{topicId}"></div>
                         </div>
+
                     </div>
                 </section>
 
                 <section class="bd-color:base-3 bd-radius:9 px:5 py:3 m:3 n-item n-item:shadow">
                     <h1 class="pt:3 bd-bottom w:10p h:1 fw:3 ">✏️ 제목</h1>
                     <div class="d:flex jc:center mt:2">
-                        <input class="w:10p n-textbox" type="text" name="title">
+                        <input class="w:10p n-textbox" type="text" name="title" th:field="*{title}">
                     </div>
+                    <div class="pl:1 mt:3 fs:1 " style="color: var(--color-accent-1);" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></div>
                 </section>
 
                 <section class="bd-color:base-3 bd-radius:9 px:5 py:2 m:3 n-item n-item:shadow">
@@ -146,7 +153,9 @@
                               th:maxlength="1500"
                               cols="30"
                               rows="10"
+                              th:field="*{content}"
                       ></textarea>
+                        <div class="pl:1 mt:3 fs:1 " style="color: var(--color-accent-1);" th:if="${#fields.hasErrors('content')}" th:errors="*{content}"></div>
                     </div>
                 </section>
 

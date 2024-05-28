@@ -3,7 +3,12 @@ window.addEventListener("load", function(e) {
     let bookIntroDiv = bookIntro.querySelector(".book-intro-div");
     let countImg = bookIntroDiv.querySelectorAll("img");
     let currentIndex = 0; // 초기값을 0으로 설정
-    let moveLen = -460; // 이미지의 너비로 이동 거리 설정
+
+    const img = document.querySelector('.book-intro-div img');
+    let imgSize = img.clientWidth;
+
+
+    let moveLen = -imgSize; // 이미지의 너비로 이동 거리 설정
     let intervalId;
 
     function slideNextImage() {
@@ -21,7 +26,7 @@ window.addEventListener("load", function(e) {
     }
 
     function startSlide() {
-        intervalId = setInterval(slideNextImage, 3000);
+        intervalId = setInterval(slideNextImage, 3300);
     }
 
     function stopSlide() {
@@ -36,9 +41,9 @@ window.addEventListener("load", function(e) {
         stopSlide(); // 슬라이드를 멈추고 조건을 확인
 
         if (window.innerWidth < 768) {
-            moveLen = -460; // 기본 이동 거리
+            moveLen = -imgSize; // 기본 이동 거리
         } else {
-            moveLen = -1200; // 768px 이상일 때 이동 거리
+            moveLen = -imgSize; // 768px 이상일 때 이동 거리
         }
 
         // 슬라이드 위치 초기화
@@ -102,7 +107,7 @@ bestseller.onclick = function(e){
         bestseller.classList.toggle("book-on");
         newBook.classList.toggle("book-on");
     }
-        
+
     fetch("/api/home/bestseller")
     .then((response)=>response.json())
     .then((data)=>{
@@ -136,7 +141,7 @@ function makeTemplate(list){
         let pubDate = book.pubDate.substr(0, 10);
         template +=  `
         <li class="shorts-shadow min-width:6 box-sizing:border-box">
-            <a class="d:flex  p:3 gap:4 m:2 " href="/book/detail?id=${book.id}&m=1">
+            <a class="d:flex  p:3 gap:4 m:2  bg-color:main-1 border-radius:3 " href="/book/detail?id=${book.id}&m=1">
                 <div class="fw:3 fs:3">${index++}</div>
                 <div class="book-img-wh">
                     <img src="${book.cover}" class="book-img-wh">

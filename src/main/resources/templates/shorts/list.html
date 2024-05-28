@@ -1,136 +1,136 @@
 <html
-  lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{inc/layout.html}"
+        lang="ko"
+        xmlns:th="http://www.thymeleaf.org"
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+        xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+        layout:decorate="~{inc/layout.html}"
 >
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>북쇼츠</title>
-    <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>위드북스</title>
+  <link rel="stylesheet" type="text/css" href="https://fastly.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
+  <link rel="icon" type="image/x-icon" href="/favicon.ico">
 
 
 
-    <script src="https://fastly.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-<!--    자바스크립트 날짜 형식 바꿔주는 라이브러리 -->
+  <script src="https://fastly.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+  <!--    자바스크립트 날짜 형식 바꿔주는 라이브러리 -->
 
-    <link rel="stylesheet" type="text/css" href="/css/var.css" />
-    <link rel="stylesheet" type="text/css" href="/css/withtil.css" />
-    <link rel="stylesheet" type="text/css" href="/css/util/border-radius.css" />
-    <style>
-      #main {
-        --gap-10: 62px;
+  <link rel="stylesheet" type="text/css" href="/css/var.css" />
+  <link rel="stylesheet" type="text/css" href="/css/withtil.css" />
+  <link rel="stylesheet" type="text/css" href="/css/util/border-radius.css" />
+  <style>
+    #main {
+      --gap-10: 62px;
+    }
+
+    .shorts > div {
+      --height-1: 40px;
+      --width-1: 32px;
+    }
+
+    /*좋아요 댓글 이모티콘 크기 */
+    .cmt-like-section > * {
+      --icon-size-5: 28px;
+
+    }
+    .pager {
+      --height-1: 4px;
+    }
+
+    /* 이미지 슬라이드 효과*/
+    .transition-transform {
+      transition: transform 0.8s;
+    }
+
+    /* 이미지 페이징 효과  */
+
+    .transition-background {
+      transition: background-color 0.6s;
+    }
+
+    /*북쇼츠 , 댓글 그림자*/
+    .box-shadow-custom {
+      box-shadow: 2px 4px 14px 0 rgba(157, 157, 157, 14%);
+    }
+    .translate-x-18px {
+      @media (min-width: 1200px) {
+        transform: translateX(330px);
       }
+    }
 
-      .shorts > div {
-        --height-1: 40px;
-        --width-1: 32px;
-      }
+    /*본문 내용 line-heihgt*/
+    article p {
+      line-height: 1.7;
+    }
 
-      /*좋아요 댓글 이모티콘 크기 */
-      .cmt-like-section > * {
-        --icon-size-5: 28px;
+    /*    댓글버튼-숫자 , 좋아요버튼-숫자  이모티콘 색상 */
+    .color-text {
+      color: #343330;
+    }
 
-      }
-      .pager {
-        --height-1: 4px;
-      }
+    .color-icon:before {
+      background-color: #343330;
+    }
 
-      /* 이미지 슬라이드 효과*/
-      .transition-transform {
-        transition: transform 0.8s;
-      }
+    /*댓글 컬러*/
+    .comment-content-color {
+      color: #222222;
+    }
+    .comment-title-color {
+      color: #242424;
+    }
 
-      /* 이미지 페이징 효과  */
+    .rg-comment-hover:hover {
+      background-color: var(--color-base-2);
 
-      .transition-background {
-        transition: background-color 0.6s;
-      }
+      border-radius: 100px;
+    }
 
-      /*북쇼츠 , 댓글 그림자*/
-      .box-shadow-custom {
-        box-shadow: 2px 4px 14px 0 rgba(157, 157, 157, 14%);
-      }
-      .translate-x-18px {
-        @media (min-width: 1200px) {
-          transform: translateX(330px);
-        }
-      }
+    /*  모달창*/
+    /* CSS */
+    .n-modal {
+      transition:
+              transform 0.13s,
+              opacity 0.13s;
+    }
 
-      /*본문 내용 line-heihgt*/
-      article p {
-        line-height: 1.7;
-      }
+    .comment-modal-transform{
+      transform: translateX(-130px);
+    }
 
-      /*    댓글버튼-숫자 , 좋아요버튼-숫자  이모티콘 색상 */
-      .color-text {
-        color: #343330;
+    @keyframes modal-fade-in {
+      from {
+        opacity: 0;
+        transform: translate(50%, -48%) scale(0.97);
       }
+      to {
+        opacity: 1;
+        transform: translate(50%, -50%) scale(1);
+      }
+    }
 
-      .color-icon:before {
-        background-color: #343330;
+    @keyframes modal-fade-out {
+      from {
+        opacity: 1;
+        transform: translate(50%, -50%) scale(1);
       }
+      to {
+        opacity: 0;
+        transform: translate(100%, -48%) scale(0.97);
+      }
+    }
 
-      /*댓글 컬러*/
-      .comment-content-color {
-        color: #222222;
-      }
-      .comment-title-color {
-        color: #242424;
-      }
-
-      .rg-comment-hover:hover {
-        background-color: var(--color-base-2);
-
-        border-radius: 100px;
-      }
-
-      /*  모달창*/
-      /* CSS */
-      .n-modal {
-        transition:
-          transform 0.13s,
-          opacity 0.13s;
-      }
-
-      .comment-modal-transform{
-        transform: translateX(-130px);
-      }
-
-      @keyframes modal-fade-in {
-        from {
-          opacity: 0;
-          transform: translate(50%, -48%) scale(0.97);
-        }
-        to {
-          opacity: 1;
-          transform: translate(50%, -50%) scale(1);
-        }
-      }
-
-      @keyframes modal-fade-out {
-        from {
-          opacity: 1;
-          transform: translate(50%, -50%) scale(1);
-        }
-        to {
-          opacity: 0;
-          transform: translate(100%, -48%) scale(0.97);
-        }
-      }
-
-      .backdrop {
-        position: fixed;
-        inset: 0;
-        background-color: rgba(0, 0, 0, 0.06);
-      }
-      .modal-transform-xy {
-        transform: translateX(170px) !important;
-      }
-      /*  모달창*/
+    .backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.06);
+    }
+    .modal-transform-xy {
+      transform: translateX(170px) !important;
+    }
+    /*  모달창*/
 
     *{
       font-family: "Noto Sans KR", sans-serif;
@@ -151,213 +151,214 @@
     /*}*/
 
 
-      @keyframes scaleAnimation {
-        0% {
-          transform: scale(1);
-        }
-        50% {
-          transform: scale(1.8);
-        }
-
-        100%{
-          transform: scale(1);
-
-        }
+    @keyframes scaleAnimation {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.8);
       }
 
-      .like {
-        animation: scaleAnimation 0.6s ease; /* 1초 동안 애니메이션을 적용하고, 입출력 속도는 ease-in-out */
-      }
-      
-    </style>
-    <script src="/js/shorts/list.js" defer></script>
-    <script src="/js/shorts/list-scroll.js" defer></script>
-  </head>
+      100%{
+        transform: scale(1);
 
-  <body>
-    <!--gap 오버라이딩 필요 스마트폰 pb 있고, 테블릿 pc 업게 하기 -->
+      }
+    }
+
+
+    .like {
+      animation: scaleAnimation 0.6s ease; /* 1초 동안 애니메이션을 적용하고, 입출력 속도는 ease-in-out */
+    }
+
+  </style>
+  <script src="/js/shorts/list.js" defer></script>
+  <script src="/js/shorts/list-scroll.js" defer></script>
+</head>
+
+<body>
+<!--gap 오버라이딩 필요 스마트폰 pb 있고, 테블릿 pc 업게 하기 -->
 
 <!--    dsff-->
-    <!--    dsff-->
-    <!--    dsff-->
-    <main
-      layout:fragment="main"
-      class="min-w:7 px:3 pb:10 md:pb:0 lg:pb:0"
-      id="main"
-    >
+<!--    dsff-->
+<!--    dsff-->
+<main
+        layout:fragment="main"
+        class="min-w:7 px:3 pb:10 md:pb:0 lg:pb:0 flex-grow:1"
+        id="main"
+>
 
-      <section id="login-modal" class="n-modal d:none  modal-transform-xy zi:5" tabindex="-1">
-        <h1 class="n-font:subtitle text-align:center fs:5 fw:2 mt:3 mb:4">로그인을 하시겠습니까?</h1>
-        <p class="fs:2">로그인을하시면 조금 더 많은 서비스를 이용 할 수 있습니다. </p>
-        <div class="mt:4 d:flex gap:4 jc:center">
-          <button id="login-close-btn" type="button" class="n-btn w:2 p:2 bg-color:main-2">닫기</button>
-          <a href="/user/login"  id="login-open-btn" type="button" class="n-btn w:3 flex-grow:1">로그인</a>
+  <section id="login-modal" class="n-modal d:none  modal-transform-xy zi:5" tabindex="-1">
+    <h1 class="n-font:subtitle text-align:center fs:5 fw:2 mt:3 mb:4">로그인을 하시겠습니까?</h1>
+    <p class="fs:2">로그인을하시면 조금 더 많은 서비스를 이용 할 수 있습니다. </p>
+    <div class="mt:4 d:flex gap:4 jc:center">
+      <button id="login-close-btn" type="button" class="n-btn w:2 p:2 bg-color:main-2">닫기</button>
+      <a href="/user/login"  id="login-open-btn" type="button" class="n-btn w:3 flex-grow:1">로그인</a>
 
-        </div>
-      </section>
-      <div id="login-modal-backdrop" class="backdrop d:none zi:4"></div>
+    </div>
+  </section>
+  <div id="login-modal-backdrop" class="backdrop d:none zi:4"></div>
 
-      <div id="bookshorts-list">
+  <div id="bookshorts-list">
         <span class="pos:relative">
           <div class="pos:absolute left:1 top:1 fs:5" th:if="${checkShorts}">🔥</div>
         </span>
 
-        <section
-        
-          class="bd bd-color:base-3 box-shadow-custom bd-radius:6 px:4 py:4 mt:6 short-section lg:pos:relative"
-          th:classappend="${checkShorts}? 'bd-color:main-5'"
-          th:each="s, stat : ${list}"
-          th:id="${s.id}"
-        >
-          <h1 class="d:none">북쇼츠</h1>
-          <section class="shorts d:flex jc:center ai:center px:1"
-          th:classappend="${stat.last} ? 'observe-target' : ''"
-          th:data-id="${s.id}"
-          >
-            <h1 class="d:none">북쇼츠 작성관련 정보</h1>
-            <div class="h:1 w:1 border-radius:6 of:hidden">
-              <img
-                class="h:10p w:10p"
-                src="/image/shorts/profile.png"
-                th:src="@{|${s.userImg}|}"
-                alt="프로필사진"
-              />
-            </div>
-  
-            <span class="d:flex ml:1 flex-direction:column">
+    <section
+
+            class="bd bd-color:base-3 box-shadow-custom bd-radius:6 px:4 py:4 mt:6 short-section lg:pos:relative"
+            th:classappend="${checkShorts}? 'bd-color:main-5'"
+            th:each="s, stat : ${list}"
+            th:id="${s.id}"
+    >
+      <h1 class="d:none">북쇼츠</h1>
+      <section class="shorts d:flex jc:center ai:center px:1"
+               th:classappend="${stat.last} ? 'observe-target' : ''"
+               th:data-id="${s.id}"
+      >
+        <h1 class="d:none">북쇼츠 작성관련 정보</h1>
+        <div class="h:1 w:1 border-radius:6 of:hidden">
+          <img
+                  class="h:10p w:10p"
+                  src="/image/shorts/profile.png"
+                  th:src="@{|${s.userImg}|}"
+                  alt="프로필사진"
+          />
+        </div>
+
+        <span class="d:flex ml:1 flex-direction:column">
               <div>
                 <a
-                  href=""
-                  class="font-size:2 comment-title-color font-weight:3 ml:1"
-                  th:text="${s.userNickname}"
-                  >뉴렉이</a
+                        href=""
+                        class="font-size:2 comment-title-color font-weight:3 ml:1"
+                        th:text="${s.userNickname}"
+                >뉴렉이</a
                 >
               </div>
               <div
-                class="as:end font-size:1 color:base-4 ml:1"
-                th:text="${#temporals.format(s.regDate,'yy-MM-dd HH:mm')}"
+                      class="as:end font-size:1 color:base-4 ml:1"
+                      th:text="${#temporals.format(s.regDate,'yy-MM-dd HH:mm')}"
               >
                 10분 전
               </div>
             </span>
-            <div class="ml:auto">
-              <a
-                href=""
-                class="font-size:1 color:base-4"
-                th:text="${s.bookTitle}"
-                th:href="@{/book/detail(id=${s.bookId})}"
-                >도둑맞은 집중력</a
-              >
-            </div>
-          </section>
-  
-          <section class="d:flex jc:end my:3">
-            <h1 class="d:none">북쇼츠 팝업버튼</h1>
-            <div class="n-dropdown">
-              <button class="cursor:pointer dropdown-btn">
+        <div class="ml:auto ln-clamp:1 w:3 lg:w:auto md:w:auto text-align:right	">
+          <a
+                  href=""
+                  class="font-size:1 color:base-4"
+                  th:text="${s.bookTitle}"
+                  th:href="@{/book/detail(id=${s.bookId})}"
+          >도둑맞은 집중력</a
+          >
+        </div>
+      </section>
+
+      <section class="d:flex jc:end my:3 ">
+        <h1 class="d:none">북쇼츠 팝업버튼</h1>
+        <div class="n-dropdown">
+          <button class="cursor:pointer dropdown-btn">
                 <span
-                  class="icon icon:dots_three_outline_vertical_fill color-icon rg-comment-hover shorts-content-dots"
+                        class="icon icon:dots_three_outline_vertical_fill color-icon rg-comment-hover shorts-content-dots"
                 ></span>
-              </button>
-              <ul class="dropdown-list ">
-                <li>
-                  <button>
+          </button>
+          <ul class="dropdown-list  comment-modal-transform">
+            <li>
+              <button>
                     <span class="va:middle deco deco-size:3 icon:share_fat w:100p">
                       공유하기
                     </span>
-                  </button>
-                </li>
-  
-  
-                <li th:if="${#authentication.principal ne 'anonymousUser'}">
-                  <button>
+              </button>
+            </li>
+
+
+            <li th:if="${#authentication.principal ne 'anonymousUser'}">
+              <button>
                     <span class="va:middle deco deco-size:3 icon:share_fat w:100p">
                       신고하기
                     </span>
-                  </button>
-                </li>
-  
-                <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id eq s.userId}">
-                  <button>
-                    <a
-                      href=""
-                      th:href="@{edit(sid=${s.id},bid=${s.bookId})}"
-                      class="va:middle deco deco-size:3 icon:pencil_simple w:100p"
-                    >
-                      수정하기
-                    </a>
-                  </button>
-                </li>
-  
-                <li th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.id eq s.userId}">
-                  <form id="form-name" class="px:2 py:1">
-                    <button
-                      id="modal-btn"
-                      class="delete-btn w:100p va:middle deco deco-size:4 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
-                    >
-                      삭제하기
-                    </button>
-                    <input type="hidden" name="shorts-id" th:value="${s.id}" />
-  
-                  </form>
-                </li>
-  
-              </ul>
-            </div>
-            <section
+              </button>
+            </li>
+
+            <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id eq s.userId}">
+              <button>
+                <a
+                        href=""
+                        th:href="@{edit(sid=${s.id},bid=${s.bookId})}"
+                        class="va:middle deco deco-size:3 icon:pencil_simple w:100p"
+                >
+                  수정하기
+                </a>
+              </button>
+            </li>
+
+            <li th:if="${#authentication.principal != 'anonymousUser' and #authentication.principal.id eq s.userId}">
+              <form id="form-name" class="px:2 py:1">
+                <button
+                        id="modal-btn"
+                        class="delete-btn w:100p va:middle deco deco-size:4 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
+                >
+                  삭제하기
+                </button>
+                <input type="hidden" name="shorts-id" th:value="${s.id}" />
+
+              </form>
+            </li>
+
+          </ul>
+        </div>
+        <section
                 id="modal"
                 class="n-modal d:none modal-transform-xy"
                 tabindex="-1"
-              >
-                <h1 class="n-font:subtitle text-align:center">
-                  게시글을 정말 삭제 하시겠습니까 ?
-                </h1>
-                <div class="mt:4 d:flex">
-                  <button id="ok-btn" type="button" class="n-btn w:2 mr:4">
-                    확인
-                  </button>
-                  <button
+        >
+          <h1 class="n-font:subtitle text-align:center">
+            게시글을 정말 삭제 하시겠습니까 ?
+          </h1>
+          <div class="mt:4 d:flex">
+            <button id="ok-btn" type="button" class="n-btn w:2 mr:4">
+              확인
+            </button>
+            <button
                     id="close-btn"
                     type="button"
                     class="n-btn w:2 bg-color:main-2"
-                  >
-                    닫기
-                  </button>
-                </div>
-            </section>
-          </section>
-  
-          <!--             모달창 -->
-          <span class="lg:d:flex lg:ai:start gap:2 lg:d:block">
+            >
+              닫기
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <!--             모달창 -->
+      <span class="lg:d:flex lg:ai:start gap:2 lg:d:block">
             <section
-              class="fl-dir:column align-self:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2"
-              th:if="${s.img}"
+                    class="fl-dir:column align-self:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2"
+                    th:if="${s.img}"
             >
               <h1 class="d:none">북쇼츠 본문 이미지</h1>
-  
-              <div class="d:flex fl-dir:column h:7 w:7 mx:auto">
-                <div class="slide w:7 h:7 of:hidden pos:relative border-radius:2">
+
+              <div class="d:flex fl-dir:column h:7 w:6 mx:auto">
+                <div class="slide w:6 h:7 of:hidden pos:relative border-radius:2">
                   <div
-                    class="img-list transition-transform images d:inline-flex position:relative"
+                          class="img-list transition-transform images d:inline-flex position:relative"
                   >
                     <img
-                      th:each="i : ${s.img}"
-                      src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"
-                      alt="본문 이미지"
-                      class="w:7 h:7 bd-radius:1 pb:1"
-                      th:src="'/image/shorts/' + ${i}"
+                            th:each="i : ${s.img}"
+                            src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"
+                            alt="본문 이미지"
+                            class="w:6 h:7 bd-radius:1 pb:1"
+                            th:src="'/image/shorts/' + ${i}"
                     />
                   </div>
-  
+
                   <button
-                    class="back position:absolute cursor:pointer ml:2 icon-color:sub-1 icon icon:arrow_left border-radius:full bg-color:base-3 top:5p left:0"
-                    th:if="${s.img.size > 1}"
+                          class="back position:absolute cursor:pointer ml:2 icon-color:sub-1 icon icon:arrow_left border-radius:full bg-color:base-3 top:5p left:0"
+                          th:if="${s.img.size > 1}"
                   >
                     <span class=" "></span>
                   </button>
                   <button
-                    class="next position:absolute cursor:pointer mr:2 icon icon:arrow_right border-radius:full icon-color:sub-1 bg-color:base-3 top:5p right:0"
-                    th:if="${s.img.size > 1}"
+                          class="next position:absolute cursor:pointer mr:2 icon icon:arrow_right border-radius:full icon-color:sub-1 bg-color:base-3 top:5p right:0"
+                          th:if="${s.img.size > 1}"
                   >
                     <span class="icon-color:sub-1 icon icon:arrow_right"></span>
                   </button>
@@ -365,26 +366,26 @@
                 <section class="pager as:stretch mt:1">
                   <h1 class="d:none">이미지 페이저</h1>
                   <ul
-                    class="d:flex of:hidden img-paging gap:1"
-                    th:if="${s.img.size > 1}"
+                          class="d:flex of:hidden img-paging gap:1"
+                          th:if="${s.img.size > 1}"
                   >
                     <li
-                      th:each="img : ${s.img}"
-                      class="bd-radius:2 transition-background fl-grow:1 h:1"
-                      th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'"
+                            th:each="img : ${s.img}"
+                            class="bd-radius:2 transition-background fl-grow:1 h:1"
+                            th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'"
                     ></li>
                   </ul>
                 </section>
               </div>
             </section>
-  
+
             <span class="d:block w:100p">
               <!--                        글이 길어지면 박스가 같이 늘어나지 않아, 만약 필요하다면 float 적용한 이미지 section-->
               <!--                              <section-->
               <!--                                      class="fl-dir:column ai:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2 rg-float-left" th:if="${s.img}"-->
               <!--                              >-->
               <!--                        <h1 class="d:none">북쇼츠 본문 이미지</h1>-->
-  
+
               <!--                        <div class="d:flex fl-dir:column h:7 w:7  mx:auto ">-->
               <!--                            <div class="slide w:7 h:7 of:hidden	pos:relative">-->
               <!--                                <div class="  img-list transition-transform images d:inline-flex position:relative">-->
@@ -392,29 +393,29 @@
               <!--                                          src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"-->
               <!--                                          alt="본문 이미지"-->
               <!--                                          class="w:7 h:7  bd-radius:1 pb:1 	"-->
-  
+
               <!--                                          th:src="'/image/shorts/' + ${i}" />-->
               <!--                                </div>-->
-  
+
               <!--                            <button class="back position:absolute cursor:pointer  ml:2	 p:1  border-radius:full   icon-color:sub-1 bg-color:base-2  top:4p  left:0" th:if="${s.img.size > 1}" >-->
               <!--                                <span class="icon icon:arrow_left"></span></button>-->
-  
+
               <!--                            <button class="next position:absolute cursor:pointer  mr:2	 p:1  border-radius:full   icon-color:sub-1 bg-color:base-2  top:4p  right:0" th:if="${s.img.size > 1}" >-->
               <!--                                <span class="icon icon:arrow_right"></span></button>-->
               <!--                            </div>-->
               <!--                            <section class="pager as:stretch mt:1">-->
               <!--                                <h1 class="d:none">이미지 페이저</h1>-->
               <!--                                <ul class="d:flex of:hidden img-paging gap:1" th:if="${s.img.size > 1}">-->
-  
+
               <!--                                <li th:each="img : ${s.img}"-->
               <!--                                    class="bd-radius:2 transition-background fl-grow:1   h:1" th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'">-->
               <!--                                </li>-->
-  
+
               <!--                                </ul>-->
               <!--                            </section>-->
               <!--                        </div>-->
               <!--                    </section>-->
-  
+
               <article class="h:max-content pl:2 pr:3">
                 <h1 class="d:none">북쇼츠 본문</h1>
                 <p class="ml:2 mr:2 ln-h:2 fs:2" th:utext="${s.content}">
@@ -423,15 +424,15 @@
                   정하는 자가 전투·훈련등 직무집행과 관련하여 받은 손해에 대하여는
                   법률이 정하는 보상외에 국가 또는 공공단체에 공무원의 직무상
                   불법행위로 인한 배상은 청구할 수 없다.<br /><br />
-  
+
                   모든 국민은 헌법과 법률이 정한 법관에 의하여 법률에 의한 재판을
                   받을 권리를 가진다. 대통령의 선거에 관한 사항은 법률로 정한다.
                   헌법개정은 국회재적의원 과반수 또는 대통령의 발의로 제안된다.<br /><br />
-  
+
                   대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다.
                   모든 국민은 거주·이전의 자유를 가진다. 국무총리는 국무위원의
                   해임을 대통령에게 건의할 수 있다.<br /><br />
-  
+
                   대통령은 전시·사변 또는 이에 준하는 국가비상사태에 있어서
                   병력으로써 군사상의 필요에 응하거나 공공의 안녕질서를 유지할
                   필요가 있을 때에는 법률이 정하는 바에 의하여 계엄을 선포할 수
@@ -439,145 +440,191 @@
                 </p>
               </article>
             </span>
-  
-            <!--                    <section-->
-            <!--                            class="fl-dir:column ai:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2" th:if="${s.img}"-->
-            <!--                     >-->
-            <!--                        <h1 class="d:none">북쇼츠 본문 이미지</h1>-->
-  
-            <!--                        <div class="d:flex fl-dir:column h:7 w:7  mx:auto ">-->
-            <!--                            <div class="slide w:7 h:7 of:hidden	pos:relative">-->
-            <!--                                <div class="  img-list transition-transform images d:inline-flex position:relative">-->
-            <!--                                    <img  th:each="i : ${s.img}"-->
-            <!--                                            src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"-->
-            <!--                                            alt="본문 이미지"-->
-            <!--                                            class="w:7 h:7  bd-radius:1 pb:1 	"-->
-  
-            <!--                                            th:src="'/image/shorts/' + ${i}" />-->
-            <!--                                </div>-->
-  
-            <!--                            <button class="back position:absolute cursor:pointer ml:2   icon-color:sub-1	icon icon:arrow_left border-radius:full    bg-color:base-3  top:5p  left:0" th:if="${s.img.size > 1}" >-->
-            <!--                                <span class=" "></span>-->
-            <!--                            </button>-->
-            <!--                                <button class="next  position:absolute cursor:pointer mr:2	icon icon:arrow_right   border-radius:full   icon-color:sub-1 bg-color:base-3  top:5p right:0" th:if="${s.img.size > 1}">-->
-            <!--                                       <span class=" icon-color:sub-1  	icon icon:arrow_right"></span>-->
-            <!--                                </button>-->
-            <!--                            </div>-->
-            <!--                            <section class="pager as:stretch mt:1">-->
-            <!--                                <h1 class="d:none">이미지 페이저</h1>-->
-            <!--                                <ul class="d:flex of:hidden img-paging gap:1" th:if="${s.img.size > 1}">-->
-  
-            <!--                                <li th:each="img : ${s.img}"-->
-            <!--                                    class="bd-radius:2 transition-background fl-grow:1   h:1" th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'">-->
-            <!--                                </li>-->
-  
-            <!--                                </ul>-->
-            <!--                            </section>-->
-            <!--                        </div>-->
-            <!--                    </section>-->
+
+        <!--                    <section-->
+        <!--                            class="fl-dir:column ai:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2" th:if="${s.img}"-->
+        <!--                     >-->
+        <!--                        <h1 class="d:none">북쇼츠 본문 이미지</h1>-->
+
+        <!--                        <div class="d:flex fl-dir:column h:7 w:7  mx:auto ">-->
+        <!--                            <div class="slide w:7 h:7 of:hidden	pos:relative">-->
+        <!--                                <div class="  img-list transition-transform images d:inline-flex position:relative">-->
+        <!--                                    <img  th:each="i : ${s.img}"-->
+        <!--                                            src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"-->
+        <!--                                            alt="본문 이미지"-->
+        <!--                                            class="w:7 h:7  bd-radius:1 pb:1 	"-->
+
+        <!--                                            th:src="'/image/shorts/' + ${i}" />-->
+        <!--                                </div>-->
+
+        <!--                            <button class="back position:absolute cursor:pointer ml:2   icon-color:sub-1	icon icon:arrow_left border-radius:full    bg-color:base-3  top:5p  left:0" th:if="${s.img.size > 1}" >-->
+        <!--                                <span class=" "></span>-->
+        <!--                            </button>-->
+        <!--                                <button class="next  position:absolute cursor:pointer mr:2	icon icon:arrow_right   border-radius:full   icon-color:sub-1 bg-color:base-3  top:5p right:0" th:if="${s.img.size > 1}">-->
+        <!--                                       <span class=" icon-color:sub-1  	icon icon:arrow_right"></span>-->
+        <!--                                </button>-->
+        <!--                            </div>-->
+        <!--                            <section class="pager as:stretch mt:1">-->
+        <!--                                <h1 class="d:none">이미지 페이저</h1>-->
+        <!--                                <ul class="d:flex of:hidden img-paging gap:1" th:if="${s.img.size > 1}">-->
+
+        <!--                                <li th:each="img : ${s.img}"-->
+        <!--                                    class="bd-radius:2 transition-background fl-grow:1   h:1" th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'">-->
+        <!--                                </li>-->
+
+        <!--                                </ul>-->
+        <!--                            </section>-->
+        <!--                        </div>-->
+        <!--                    </section>-->
           </span>
-  
-          <section class="d:flex ai:center jc:end mr:2 mt:4 cmt-like-section">
-            <h1 class="d:none">댓글/좋아요 버튼</h1>
-            <div class="d:flex fl-dir:column ai:center">
-              <div
-                class="icon icon:chats  icon-size:5 comment-btn cursor:pointer color-icon"
-                th:data-shorts-id="${s.id}"
-              ></div>
-              <div
-                class="fs:3 fw:3 count-comment  color-text"
-                th:text="${s.commentCnt}"
-              >
-                132
-              </div>
-            </div>
-            <div class="d:flex fl-dir:column ai:center ml:5">
-              <div class="likeBtn icon  icon-size:5  cursor:pointer "   th:data-shorts-id="${s.id}"  th:classappend="${s.liked}==1  ? 'icon:heart_fill icon-color:main-5' : 'icon:heart'"></div>
-  
-              <div class="fs:3 fw:3 color-text" th:text="${s.likeCnt}" >50.2M</div>
-              <section
-                      id="modal-like"
-                      class="n-modal d:none modal-transform-xy"
-                      tabindex="-1"
-              >
-                <h1 class="n-font:subtitle text-align:center">
-                  로그인을 해주세요
-                </h1>
-                <div class="mt:4 d:flex">
-                  <button id="ok-btn-like" type="button" class="n-btn w:2 mr:4">
-                    로그인 하러 가기
-                  </button>
-                  <button
-                          id="close-btn-like"
-                          type="button"
-                          class="n-btn w:2 bg-color:main-2"
-                  >
-                    닫기
-                  </button>
-                </div>
-              </section>
-  
-            </div>
-          </section>
-  
-          <section
-            class="comment-group box-shadow-custom bg-color:sub-1 translate-x-18px mt:2 d:none h:auto d:flex fl-dir:column bd-radius:6 p:3 lg:pos:absolute lg:bottom:0 lg:right:-7 lg:border lg:w:7 zi:4"
+
+      <section class="d:flex ai:center jc:end mr:2 mt:4 cmt-like-section">
+        <h1 class="d:none">댓글/좋아요 버튼</h1>
+        <div class="d:flex fl-dir:column ai:center">
+          <div
+                  class="icon icon:chats  icon-size:5 comment-btn cursor:pointer color-icon"
+                  th:data-shorts-id="${s.id}"
+          ></div>
+          <div
+                  class="fs:3 fw:3 count-comment  color-text"
+                  th:text="${s.commentCnt}"
           >
-            <h1 class="d:none">북쇼츠 댓글</h1>
-            <div
-              class="icon icon:x cursor:pointer comment-close rg-comment-hover"
-            ></div>
-            <div class="comments color-base-9"></div>
-  
-  <!--          댓글 페이징 일단 제외 -->
-  <!--          <section class="d:flex jc:center mt:4">-->
-  <!--            <h1 class="d:none">댓글 페이저1</h1>-->
-  <!--            <ul class="n-pager">-->
-  <!--              <li class="active"><a>1</a></li>-->
-  <!--              <li><a>2</a></li>-->
-  <!--              <li><a>3</a></li>-->
-  <!--            </ul>-->
-  <!--          </section>-->
-            <div>
-              <form class="d:flex mt:2 ai:center" method="post">
-                <textarea
-                  type="text"
-                  required
-                  class="comment-content px:1 py:1 n-textbox mr:2 of:hidden "
-                  name="comment-content"
-                  placeholder="댓글을 입력하세요 ! "
-                ></textarea>
-  
-  <!--              list2 에서는 disabled 필요 -->
-                <button type="button" class="n-btn n-btn-color:main comment-reg" >
-                  등록
-                </button>
-              </form>
+            132
+          </div>
+        </div>
+        <div class="d:flex fl-dir:column ai:center ml:5">
+          <div class="likeBtn icon  icon-size:5  cursor:pointer "   th:data-shorts-id="${s.id}"  th:classappend="${s.liked}==1  ? 'icon:heart_fill icon-color:main-5' : 'icon:heart'"></div>
+
+          <div class="fs:3 fw:3 color-text" th:text="${s.likeCnt}" >50.2M</div>
+          <section
+                  id="modal-like"
+                  class="n-modal d:none modal-transform-xy"
+                  tabindex="-1"
+          >
+            <h1 class="n-font:subtitle text-align:center">
+              로그인을 해주세요
+            </h1>
+            <div class="mt:4 d:flex">
+              <button id="ok-btn-like" type="button" class="n-btn w:2 mr:4">
+                로그인 하러 가기
+              </button>
+              <button
+                      id="close-btn-like"
+                      type="button"
+                      class="n-btn w:2 bg-color:main-2"
+              >
+                닫기
+              </button>
             </div>
           </section>
-        </section>
 
-      </div>
-
-      
-      <section>
-        <h1 class="d:none">플로팅버튼</h1>
-
-
-        <div class="floting-btn">
-        <a
-          href="/shorts/reg"
-          style="transform: translate(-60px , 10px)"
-          class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:8 icon-size:5 border-radius:full h:1 w:1 zi:5"
-        ></a>
-        <a
-          href="#main"
-          style="transform: translate(-36px, 9px)"
-          class="icon icon:arrow_up arrow icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:1 icon-size:5 border-radius:full h:1 w:1 zi:5"
-        ></a>
         </div>
       </section>
-    </main>
-  </body>
+
+      <section
+              class="comment-group box-shadow-custom bg-color:sub-1 translate-x-18px mt:2 d:none h:auto d:flex fl-dir:column bd-radius:6 p:3 lg:pos:absolute lg:bottom:0 lg:right:-7 lg:border lg:w:7 zi:4"
+      >
+        <h1 class="d:none">북쇼츠 댓글</h1>
+        <div
+                class="icon icon:x cursor:pointer comment-close rg-comment-hover"
+        ></div>
+        <div class="comments color-base-9"></div>
+
+        <!--          댓글 페이징 일단 제외 -->
+        <!--          <section class="d:flex jc:center mt:4">-->
+        <!--            <h1 class="d:none">댓글 페이저1</h1>-->
+        <!--            <ul class="n-pager">-->
+        <!--              <li class="active"><a>1</a></li>-->
+        <!--              <li><a>2</a></li>-->
+        <!--              <li><a>3</a></li>-->
+        <!--            </ul>-->
+        <!--          </section>-->
+        <div>
+          <form class="d:flex mt:2 ai:center" method="post">
+                <textarea
+                        sec:authorize="isAuthenticated()"
+                        type="text"
+                        required
+                        class="comment-content px:1 py:1 n-textbox mr:2 of:hidden "
+                        name="comment-content"
+                        placeholder="댓글을 입력하세요 ! "
+                ></textarea>
+                <textarea
+                        sec:authorize="isAnonymous"
+                        type="text"
+                        onfocus="loginModal()"
+                        class="comment-content px:1 py:1 n-textbox mr:2 of:hidden "
+                        name="comment-content"
+                        placeholder="댓글을 입력하세요 ! "
+                ></textarea>
+
+            <!--              list2 에서는 disabled 필요 -->
+            <button sec:authorize="isAuthenticated()" type="button" class="n-btn n-btn-color:main comment-reg" >
+              등록
+            </button>
+            <button sec:authorize="isAnonymous" type="button" class="n-btn n-btn-color:main" disabled>
+              등록
+            </button>
+          </form>
+        </div>
+      </section>
+    </section>
+
+  </div>
+
+
+  <section>
+    <h1 class="d:none">플로팅버튼</h1>
+
+
+    <div class="floting-btn">
+      <a
+        sec:authorize="isAnonymous()"
+        href="javascript:loginModal()"
+        style="transform: translate(-60px , 10px)"
+        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:8 icon-size:5 border-radius:full h:1 w:1 zi:5"
+      >
+      </a>
+      <a
+        sec:authorize="isAuthenticated()"
+        href="/shorts/reg"
+        style="transform: translate(-60px , 10px)"
+        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:8 icon-size:5 border-radius:full h:1 w:1 zi:5"
+      >
+    </a>
+      <a
+        href="#main"
+        style="transform: translate(-36px, 9px)"
+        class="icon icon:arrow_up arrow icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:1 icon-size:5 border-radius:full h:1 w:1 zi:5"
+      ></a>
+    </div>
+  </section>
+  <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+    <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+      <ul class="mb:2 color:base-5 d:flex">
+        <li>서비스 이용약관 | </li>
+        <li class="ml:1">개인정보 처리방침 |</li>
+        <a class="ml:1" href="">회사 안내</a>
+      </ul>
+
+      <ul class="mb:2 color:base-5 d:flex fs:2">
+        <li class="fs:2">제휴 및 대외 협력 |</li>
+        <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+      </ul>
+      <ul class="color:base-6 d:flex fs:2">
+        <li class="fs:2">주식회사 위드북스</li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+          All rights reserved.
+        </li>
+      </ul>
+    </section>
+  </footer>
+</main>
+</body>
 </html>
 

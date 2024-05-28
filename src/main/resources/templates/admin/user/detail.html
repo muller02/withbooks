@@ -81,6 +81,7 @@
                 <ul
                     class="n-pager"
                     style="display: flex; justify-content: center"
+                    th:if="${list}"
                     th:with="page =  ${param.p} eq null ? 1 : ${{param.p}}
                         , temp = (${page} - 1) / 5
                         , startnum = ${T(java.lang.Math).floor(temp)} * 5 + 1

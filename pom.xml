@@ -11,6 +11,7 @@
 	<groupId>kr.withbooks</groupId>
 	<artifactId>web</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
 	<name>web</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>

@@ -29,7 +29,7 @@ public class CustomAuthenticationSuccessHandler  implements AuthenticationSucces
         if(isAdmin)
             response.sendRedirect("/admin/index?m=1");
         else
-             response.sendRedirect("/");  // 로그인 성공후 갈 페이지
+             response.sendRedirect("/shorts/list?m=2");  // 로그인 성공후 갈 페이지
 
     }
 }

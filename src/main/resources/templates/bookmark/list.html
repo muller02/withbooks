@@ -3,8 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>북마크</title>
-        <script src="/js/bookmark/list.js" defer></script>
+        <title>위드북스</title>        <script src="/js/bookmark/list.js" defer></script>
         <style>
             .wrapping {
                 position: relative;
@@ -27,19 +26,21 @@
     </head>
     <body>
         <main layout:fragment="main">
-            <section class=".bookmark">
-                <h1 class="d:none n-tab-grow">내서재 탭바</h1>
-                <ul class="n-tabbar">
-                    <li class="w:5p">
-                        <button class="w:100p color:base-3 font-weight:3">
-                            <a href="/booklog/list?m=4">북로그</a>
-                        </button>
-                    </li>
-                    <li class="w:5p">
-                        <button class="w:100p font-weight:3">북마크</button>
-                    </li>
-                </ul>
-            </section>
+            <div class="pos:relative">
+                <section class="bookmark">
+                    <h1 class="d:none">내서재 탭바</h1>
+
+                    <ul class="n-tabbar n-tab-grow">
+                        <li class="w:5p">
+                            <button class="w:100p color:base-3 font-weight:3">
+                                <a href="/booklog/list?m=4">북로그</a>   
+                            </button>
+                        </li>
+                        <li class="active w:5p">
+                            <button class="w:100p font-weight:3">북마크</button>
+                        </li>
+                    </ul>
+                </section>
 
             <div class="book-check-all d:flex mx:3 justify-content:space-between margin:2" th:if="${list.size} > 0">
                 <div>

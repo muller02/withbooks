@@ -8,8 +8,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
+    <title>위드북스</title>    <style>
         .category-select,
         .query-input{
             --height-1: 40px;
@@ -78,7 +77,7 @@
                 <a href="">
                     <span class="bd bd-radius:4 d:flex p:4">
                         <div>
-                            <img class="h:2 w:2" src="/image/with/a1.png" th:src="@{|/image/with${w.img}|}" alt="">
+                            <img class="h:2 w:2" src="/image/with/a1.png" th:src="${w.img}" alt="">
                         </div>
                         <span class="d:flex fl-dir:column jc:center ml:3 w:10p">
                             <span class="d:flex bd-bottom bd-color:base-2">

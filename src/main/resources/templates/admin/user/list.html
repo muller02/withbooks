@@ -173,6 +173,7 @@
                 <ul
                     class="n-pager"
                     style="display: flex; justify-content: center"
+                    th:if="${list}"
                     th:with="page = ${param.p} eq null ? 1 : ${{param.p}}
                         , temp = (${page} - 1) / 5
                         , startnum = ${T(java.lang.Math).floor(temp)} * 5 + 1
@@ -216,7 +217,7 @@
             </section>
             <section id="batch-menus" class="my:4">
                 <h1 class="d:none">일괄 처리 메뉴</h1>
-                <div class="text-align:center">
+                <div class="text-align:center" th:if="${list}">
                     <div class="d:inline-flex mr:2 fs:2">일괄 처리(<span class="color:accent-1">※ 체크된 회원</span>)</div>
                     <div class="normal-status n-btn mr:2">정상 처리</div>
                     <button class="withdraw-status n-btn bg-color:main-2 color:main-6 mr:2">탈퇴 처리</button>

@@ -9,8 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="/js/board/list.js" defer></script>
-    <title>list</title>
-
+    <title>위드북스</title>
     <style>
         #notice-box {
             position: fixed;
@@ -122,26 +121,26 @@
                             </div>
                             <div class="d:flex flex-direction:column flex-grow:1 gap:2">
                                 <div>
-                                    <div class="fs:1 md:fs:2 lg:fs:2 fw:1"><a href="" th:href="@{/board/detail(m=3,wid=${param.wid},rid=${param.rid},id=${b.id})}">"<span th:text="${b.topic}">재홍이는 진짜 일뽕인가</span>"</a></div>
+                                    <div class="fs:1 md:fs:2 lg:fs:3 fw:1 ln-clamp:1 color:base-6"><a href="" th:href="@{/board/detail(m=3,wid=${param.wid},rid=${param.rid},id=${b.id})}">"<span class="" th:text="${b.topic}">재홍이는 진짜 일뽕인가</span>"</a></div>
                                 </div>
                                 <div>
-                                    <hi class="fs:3 md:fs:4 lg:fs:5 fw:2"><a href="" th:href="@{/board/detail(m=3, wid=${param.wid},rid=${param.rid},id=${b.id})}" th:text="${b.title}" class="ln-clamp:1">"재홍이는 바지인가"</a></hi>
+                                    <hi class="fs:2 md:fs:3 lg:fs:4 fw:2"><a href="" th:href="@{/board/detail(m=3, wid=${param.wid},rid=${param.rid},id=${b.id})}" th:text="${b.title}" class="ln-clamp:1">"재홍이는 바지인가"</a></hi>
                                 </div>
                                 <div class="d:flex ai:center gap:1">
                                     <div class="d:flex ai:center">
                                         <img class="profile-img h:1 w:1 bd-radius:12" th:src="${b.userImg}"/>
-                                        <div class="fs:1 color:base-5 ml:1 ln-clamp:1" th:text="${b.nickname}">뉴렉이</div>
+                                        <div class="fs:1 md:fs:2 lg:fs:2 color:base-5 ml:1 ln-clamp:1" th:text="${b.nickname}">뉴렉이</div>
                                     </div>
                                     <div class="d:flex ai:center">
                                         <div class="icon icon:calendar_blank icon-size:2"></div>
-                                        <div class="fs:1 color:base-5 ml:1 ln-clamp:1" th:text="${#temporals.format(b.regDate, 'yyyy.MM.dd HH:mm')}">2024.02.20.18:25</div>
+                                        <div class="fs:1 md:fs:2 lg:fs:2 color:base-5 ml:1 ln-clamp:1" th:text="${#temporals.format(b.regDate, 'yyyy.MM.dd HH:mm')}">2024.02.20.18:25</div>
                                     </div>
                                     <div class="d:flex ai:center">
                                         <div class="icon icon:chat_circle_text icon-size:2"></div>
-                                        <div class="fs:1 color:base-5 ml:1 ln-clamp:1" >댓글 <span th:text="${b.cmtCnt} == null ? 0 : ${b.cmtCnt}">2</span>건</div>
+                                        <div class="fs:1 md:fs:2 lg:fs:2 color:base-5 ml:1 ln-clamp:1" >댓글 <span th:text="${b.cmtCnt} == null ? 0 : ${b.cmtCnt}">2</span>건</div>
                                     </div>
                                 </div>
-                                <div class="ln-clamp:2">
+                                <div class="pb:1 md:ln-clamp:1 ln-clamp:3">
                                     <div class="fs:1 md:fs:2 lg:fs:2" th:utext="${b.content}">
                                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nam velit adipisci quae nisi ad possimus,
                                         dolores dolor ex quas molestias temporibus quidem aperiam cupiditate excepturi pariatur

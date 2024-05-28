@@ -152,9 +152,8 @@ public class WithController {
       model.addAttribute("joinYn", withJoinYn);
     }
 
-
     model.addAttribute("nickname", nickname);
-
+    
     model.addAttribute("withMemberList", withMemberList);
     // model.addAttribute("freeBoardList", freeBoardList);
     model.addAttribute("debateRoomList", debateRoomList);
@@ -199,10 +198,13 @@ public class WithController {
           HttpServletRequest request
   ) throws IOException {
 
-
+    
     // sido와 sigungu를 공백으로 구분하여 location으로 결합
     String location = sido + " " + sigungu;
     with.setLocation(location);
+    
+    if(sido.equals("시/도"))
+      with.setLocation("미정");
 
     //위드 이미지파일 이름
     //파일이 없을 때, 기본 이미지 적용

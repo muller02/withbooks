@@ -87,6 +87,8 @@ public class BookshortsController {
 
         model.addAttribute("list", list);
 
+        System.out.println("list : " + list);
+
         return "shorts/list";
     }
 

@@ -64,6 +64,11 @@ public class UserController {
         List<BookshortsView> list = bookshortService.getByUserId(userid, page);
         Integer count = bookshortService.getCount(userid);
 
+        if(count == 0){;
+            list = null;
+            count = 1;
+        }
+
         model.addAttribute("user", user);
         model.addAttribute("list", list);
         model.addAttribute("count", count);

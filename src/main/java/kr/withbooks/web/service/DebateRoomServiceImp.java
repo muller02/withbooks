@@ -7,11 +7,13 @@ import kr.withbooks.web.repository.DebateRoomViewRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class DebateRoomServiceImp implements DebateRoomService {
 
     private final DebateRoomViewRepository debateRoomViewRepository;
@@ -19,21 +21,17 @@ public class DebateRoomServiceImp implements DebateRoomService {
 
     @Override
     public List<DebateRoomView> getList() {
-
         List<DebateRoomView> list = debateRoomViewRepository.findAll();
-
         return list;
     }
 
     @Override
     public DebateRoom getById(Long id) {
-
         return debateRoomRepository.findById(id, null);
     }
 
     @Override
     public DebateRoom getById(Long id, Long withId) {
-
         return debateRoomRepository.findById(id, withId);
     }
 
@@ -46,19 +44,17 @@ public class DebateRoomServiceImp implements DebateRoomService {
     @Override
     public Long add(DebateRoom debateRoom) {
         debateRoomRepository.save(debateRoom);
-
         return debateRoom.getId();
     }
 
     @Override
     public DebateRoomView getTopBoardCntbyId(Long withId) {
-
         return debateRoomViewRepository.findByWithId(withId);
     }
 
     @Override
+    @Transactional
     public void deleteAll(Long withId, List<Long> ids) {
-
         debateRoomRepository.deleteAllById(withId, ids);
     }
 }
