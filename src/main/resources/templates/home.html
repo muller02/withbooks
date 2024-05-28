@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>위드북스</title>
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css" />
     <script src="/js/home.js" defer></script>
 
@@ -101,25 +101,28 @@
             box-shadow: 2px 4px 12px rgba(157, 157, 157, 0.08);
             flex: 0 0 33.33%;
         }
+
+
+
     </style>
 </head>
 <body>
 <main
         layout:fragment="main"
-        class="min-w:7  pb:10 md:pb:0   ml:8 mt:2 mr:8"
+        class=" pb:10 md:pb:0  min-w:7   mt:2 mx:2"
         id="main"
 >
 
     <section class="book-intro my:2">
         <h1 class="d:none">팩 소개</h1>
-        <div class="m:2 fw:3 fs:4 color:main-5"> 🔥 위드북스 !</div>
+
         <div class=" lg:d:flex lg:jc:center my:6">
-            <div class="  overflow:hidden h:7 lg-img-w  " style="width: 458.67px;" >
+            <div class="  overflow:hidden h:7 lg-img-w  w:100p "  >
                 <div class="w:auto d:flex h:100p effect book-intro-div lg:w:auto flex-shrink:0 ">
-                    <img src="/image/home/책소개.jpg" class="book-add-w  cursor:pointer  lg-img-w  flex-shrink:0	">
-                    <img src="/image/home/책광고2.jpg" class="book-add-w   cursor:pointer lg-img-w flex-shrink:0	 ">
-                    <img src="/image/home/책소개.jpg" class="book-add-w  cursor:pointer  lg-img-w flex-shrink:0	 " >
-                    <img src="/image/home/책광고2.jpg" class="book-add-w   cursor:pointer  lg-img-w flex-shrink:0	">
+                    <img src="/image/home/책소개.jpg" class="book-add-w  w:100p cursor:pointer  lg-img-w  flex-shrink:0	">
+                    <img src="/image/home/책광고2.jpg" class="book-add-w    w:100p cursor:pointer lg-img-w flex-shrink:0	 ">
+                    <img src="/image/home/책광고3.jpg" class="book-add-w   w:100p  cursor:pointer  lg-img-w flex-shrink:0	">
+                    <img src="/image/home/책광고4.jpg" class="book-add-w   w:100p  cursor:pointer  lg-img-w flex-shrink:0	">
 
                 </div>
             </div>
@@ -214,7 +217,7 @@
                     <h2 class="d:none  ">베스트셀러</h2>
                 <ul class=" d:flex  flex-direction:column scroll-box md:w:5p lg:w:5p fl-wrap:wrap max-height:9">
                     <li class="shorts-shadow min-width:6 box-sizing:border-box"  th:each="book, stat : ${bookList}">
-                        <a class="d:flex  p:3 gap:4 m:2 " href="" th:href="@{./book/detail(id=${book.id},m=1)}">
+                        <a class="d:flex  p:3 gap:4 m:2 bg-color:main-1 border-radius:3 " href="" th:href="@{./book/detail(id=${book.id},m=1)}">
                             <div class="fw:3 fs:3" th:text="${stat.index + 1}">1. </div>
                             <div class="book-img-wh">
                                 <img src="/image/with/trend.png" th:src="${book.cover}" class="book-img-wh">
@@ -293,7 +296,32 @@
                 </section>
         </div>
     </section>
+    <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+        <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+            <ul class="mb:2 color:base-5 d:flex">
+                <li>서비스 이용약관 | </li>
+                <li class="ml:1">개인정보 처리방침 |</li>
+                <a class="ml:1" href="">회사 안내</a>
+            </ul>
 
+            <ul class="mb:2 color:base-5 d:flex fs:2">
+                <li class="fs:2">제휴 및 대외 협력 |</li>
+                <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+            </ul>
+            <ul class="color:base-6 d:flex fs:2">
+                <li class="fs:2">주식회사 위드북스</li>
+            </ul>
+            <ul class="color:base-6">
+                <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+            </ul>
+            <ul class="color:base-6">
+                <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+                    All rights reserved.
+                </li>
+            </ul>
+        </section>
+    </footer>
 </main>
+
 </body>
 </html>

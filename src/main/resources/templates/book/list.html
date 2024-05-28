@@ -7,8 +7,7 @@
 >
     <head>
         <meta charset="UTF-8" />
-        <title>책검색</title>
-        <script src="/js/book/list.js" defer></script>
+        <title>위드북스</title>        <script src="/js/book/list.js" defer></script>
         <style>
             .search {
                 --right-1: 6px;
@@ -49,6 +48,8 @@
                     <div class="d:flex">
                         <div class="flex-grow:1 margin-right:1">
                             <form action="list" method="get" class="pos:relative book-search">
+                                <!-- <input type="hidden" name="p" value="1"> -->
+                                <input type="hidden" name="m" value="1">
                                 <input
                                     class="search-query-input n-textbox n-textbox:outline txt-al:center bd-radius:4 input"
                                     type="text"
@@ -152,7 +153,49 @@
                     </ul>
                 </section>
 
-                <section class="mb:5 mt:3">
+                <section class="mb:5 mt:3" th:if="${list.size} > 0">
+                    <h1 class="d:none">페이저</h1>
+                    <ul class="n-pager" style="display: flex; justify-content: center;"
+    
+                        th:with="page=${{param.p}} eq null ? 1 : ${{param.p}}
+                                ,temp=(${page}-1)/5
+                                ,startnum=${T(java.lang.Math).floor(temp)} * 5 + 1
+                                ,temp1 = ${count/12}
+                                ,lastnum=${count} mod 12 > 0 ? ${temp1} + 1 : ${temp1}
+                                ,endnum=${startnum+4} lt ${lastnum} ? ${startnum+4} : ${lastnum}
+                                ">
+                        <li>
+                            <!-- <span th:if="${page} lt 6">이전</span> -->
+                            <a href="list?p=5"
+                            th:href="@{./list(c=${param.c},q=${param.q},p=${startnum}-1,m=2)}"
+                            th:if="${page} ge 6">이전</a>
+                        </li>
+    
+                        <li
+                            th:each="n : ${#numbers.sequence(startnum, endnum)}"
+                            th:class="${{param.p}} == ${n} ? 'active'">
+                            <span th:if="${n} eq ${{param.p}}" th:text="${n}">1</span>
+                            <a
+                                th:if="${n} ne ${{param.p}}"
+                                href="list?p=1"
+                                th:href="@{./list(p=${n},m=1,q=${param.q},c=${param.c})}"
+                                th:text="${n}">1</a>
+                            <!-- <a
+                                th:if="${n} ne ${{param.page}}"
+                                href="list?p=1"
+                                th:href="@{./list(page=${n})}"
+                                th:text="${n}">1</a> -->
+                        </li>
+                        <li>
+                            <!-- <span th:if="${startnum+4} gt ${lastnum}">다음</span> -->
+                            <a href="list?p=6" 
+                            th:href="@{./list(p=${startnum}+5,m=1,q=${param.q},c=${param.c})}"
+                            th:if="${startnum+4} lt ${lastnum}">다음</a >
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- <section class="mb:5 mt:3">
                     <h1 class="d:none">페이저</h1>
                     <ul class="n-pager" style="display: flex; justify-content: center;"
         
@@ -186,9 +229,34 @@
                             th:if="${startnum+4} lt ${lastnum}">다음</a >
                         </li>
                     </ul>
-                </section>
+                </section> -->
         
             </div>
+            <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+                <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+                    <ul class="mb:2 color:base-5 d:flex">
+                        <li>서비스 이용약관 | </li>
+                        <li class="ml:1">개인정보 처리방침 |</li>
+                        <a class="ml:1" href="">회사 안내</a>
+                    </ul>
+
+                    <ul class="mb:2 color:base-5 d:flex fs:2">
+                        <li class="fs:2">제휴 및 대외 협력 |</li>
+                        <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+                    </ul>
+                    <ul class="color:base-6 d:flex fs:2">
+                        <li class="fs:2">주식회사 위드북스</li>
+                    </ul>
+                    <ul class="color:base-6">
+                        <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+                    </ul>
+                    <ul class="color:base-6">
+                        <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+                            All rights reserved.
+                        </li>
+                    </ul>
+                </section>
+            </footer>
         </main>
     </body>
 </html>

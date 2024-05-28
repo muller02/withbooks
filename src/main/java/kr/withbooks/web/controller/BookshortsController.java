@@ -80,9 +80,14 @@ public class BookshortsController {
         if(shortsId != null){
             BookshortsView shorts = service.getById(shortsId, userId);
             list.add(0, shorts);
+            boolean checkShorts = true;
+
+            model.addAttribute("checkShorts",checkShorts);
         }
 
         model.addAttribute("list", list);
+
+        System.out.println("list : " + list);
 
         return "shorts/list";
     }

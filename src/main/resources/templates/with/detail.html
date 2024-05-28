@@ -4,10 +4,10 @@
 <head>
   <meta charset="UTF-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>Document</title>
+  <title>위드북스</title>
   <!--  <script src="/js/book/list.js"></script>-->
-  <link rel="stylesheet" type="text/css" href="/css/util/color.css" />
-  <script src="/js/with/detail.js"></script>
+  <link href="/css/util/color.css" rel="stylesheet" type="text/css"/>
+  <script src="/js/with/detail.js" defer></script>
   <style>
     /* *{
     font-family: "Noto Sans KR", sans-serif;
@@ -68,7 +68,8 @@
   <section class="md:d:flex lg:d:block md:px:2 lg:px:0">
     <h1 class="d:none">위드 정보</h1>
     <div class="md:d:flex md:ai:center lg:d:block md:w:3 lg:h:4 lg:w:6p md:h:3 md:my:auto">
-      <img class="h:4 w:100p md:h:100p border-radius:3" src="/puppy2.png" th:src="${with.img}"/>
+      <img class="h:4 w:100p md:h:100p border-radius:3 object-fit:fill" onerror="this.src='/image/with/with_profile.png';" src="/puppy2.png"
+           th:src="${with.img}"/>
     </div>
 
     <div class="md:flex-grow:1 md:px:3 lg:px:0" id="with-info">
@@ -107,22 +108,33 @@
                   th:text="${withMemberCnt + ' / ' + with.personnel +'명'} ">7 / 12</span></div>
         </div>
       </div>
-      <div class="with-join-btn my:4">
+      <div th:if="${with.personnel <= withMemberCnt and joinYn == 0}">
+        <button
+          class="n-btn bg-color:base-3 mx:auto px:5"
+          type="button"
+          disabled
+          >
+            정원이 가득찼습니다 :) 
+          </button>
+      </div>
+      <div class="with-join-btn my:4"
+        th:if="${with.personnel > withMemberCnt or joinYn == 1}"
+      >
         <form action="withdraw" method="post" name="deleteMember">
           <input name="with-id" th:value="${with.id}" type="hidden"/>
         </form>
         <button
-                class="n-btn mx:auto px:5"
-                sec:authorize="isAuthenticated()"
-                th:classappend="${{joinYn}} == 1 ? 'joined n-btn-type:outline border-color:base-2 color:base-4': 'n-btn-type:filled'"
-                th:text="${{joinYn}} == 1 ? '탈퇴하기' : '가입 신청하기'"
-                type="button"
+          class="n-btn mx:auto px:5"
+          sec:authorize="isAuthenticated()"
+          th:classappend="${{joinYn}} == 1 ? 'joined n-btn-type:outline border-color:base-2 color:base-4': 'n-btn-type:filled'"
+          th:text="${{joinYn}} == 1 ? '탈퇴하기' : '가입 신청하기'"
+          type="button"
         >
           가입 신청하기 <span class="ml:2 icon icon icon:caret_right icon-color:sub-1"></span>
         </button>
         <button
-                class="n-btn mx:auto px:5 anonymous"
-                sec:authorize="isAnonymous()"
+          class="n-btn mx:auto px:5 anonymous"
+          sec:authorize="isAnonymous()"
         >
           가입 신청하기
         </button>
@@ -132,9 +144,16 @@
   <div class="with-tap-component">
     <ul class="n-tabbar justify-content:space-between menu-tap">
       <li class="active"><a>홈</a></li>
-      <li><a id="debate" th:href="@{/debate/list(m=3,wid=${with.id})}">토론서재</a></li>
-      <li><a id="calendar" th:href="@{/calendar/index(m=3,wid=${with.id})}">모임일정</a></li>
-      <li><a id="board" th:href="@{/free-board/list(m=3,wid=${with.id},p=1,s='latest')}">자유게시판</a></li>
+      <li><a href="javascript:loginModal()" id="debate" sec:authorize="isAnonymous()">토론서재</a></li>
+      <li><a href="javascript:alert('위드가입 필요합니다 :)')" id="debate" th:if="${joinYn == 0}">토론서재</a></li>
+      <li><a id="debate" th:href="@{/debate/list(m=3,wid=${with.id})}" th:if="${joinYn == 1}">토론서재</a></li>
+      <li><a href="javascript:loginModal()" id="calendar" sec:authorize="isAnonymous()">모임일정</a></li>
+      <li><a href="javascript:alert('위드가입 필요합니다 :)')" id="calendar" th:if="${joinYn == 0}">모임일정</a></li>
+      <li><a id="calendar" th:href="@{/calendar/index(m=3,wid=${with.id})}" th:if="${joinYn == 1}">모임일정</a></li>
+      <li><a href="javascript:loginModal()" id="board" sec:authorize="isAnonymous()">자유게시판</a></li>
+      <li><a href="javascript:alert('위드가입 필요합니다 :)')" id="board" th:if="${joinYn == 0}">자유게시판</a></li>
+      <li><a id="board" th:href="@{/free-board/list(m=3,wid=${with.id},p=1,s='latest')}"
+             th:if="${joinYn == 1}">자유게시판</a></li>
       <!-- <li><a>북추천</a></li> -->
       <li><a>위드맴버</a></li>
     </ul>
@@ -143,7 +162,7 @@
 
   <div id="content">
     <section class="pt:4 px:3">
-      <h1 class="fs:6 fw:3 color:base-8">소개</h1>
+      <h1 class="fs:6 fw:3 color:base-9">소개</h1>
       <pre class="mb:3"> <div class=" h:100p" th:text="${with.intro}">
         좋은 분들이 모여서 이야기하다 보면 공감대가 생기고 친밀감이 쌓여서 좋은 독자들로 이어나갔으면 좋겠다는 생각에 만들게 되었습니다.<br><br>
 
@@ -163,7 +182,7 @@
     <div class="w:100p border-bottom border-width:3 border-color:base-2"><span class="d:none">선</span></div>
 
     <section class="my:5 px:3">
-      <h1 class="fs:6 fw:3 mb:4 color:base-8">토론서재</h1>
+      <h1 class="fs:6 fw:3 mb:4 color:base-9">토론서재</h1>
 
       <div class="mt:4 d:flex mb:4 mt:4">
         <div class="d:flex">
@@ -209,46 +228,47 @@
 
     <div class="w:100p border-bottom border-width:3 border-color:base-2"><span class="d:none">선</span></div>
     <section class="px:3 my:5">
-      <h1 class="fs:6 fw:3 color:base-8 mb:4">모임일정</h1>
-<div class="d:flex">
-      <div
-              class="event border w:6 d:flex  ai:center h:fit-content gap:3 px:2 py:2 border-radius:5 mt:4 pl:3 mr:3 my:3"
-              th:data-event-date="${dateTime}"
-              th:each="event, iter : ${calendarEvents}" th:if="${iter.index < 3}"
-              th:with="dateTime=${event.startDateTime},
+      <h1 class="fs:6 fw:3 color:base-9 mb:4">모임일정</h1>
+      <div class="md:d:flex rg:d:flex">
+        <div
+                class="event border w:6 d:flex  ai:center h:fit-content gap:3 px:2 py:2 border-radius:5 mt:4 pl:3 mr:3 my:3"
+                th:data-event-date="${dateTime}"
+                th:each="event, iter : ${calendarEvents}" th:if="${iter.index < 3}"
+                th:with="dateTime=${event.startDateTime},
                       date=${#strings.listSplit(dateTime, 'T')[0]},
                       time=${#strings.listSplit(dateTime, 'T')[1]},
                       monthDay=${#strings.substring(date, 5, 10)}"
-      >
-        <div class="w:fit-content h:fit-content border-radius:5 px:2 py:2 bg-color:main-1 box-sizing:border-box">
-          <div class="mb:1 text-align:center box-sizing:border-box fw:3 color:main-5" th:text="${monthDay}">
-            3/9
+        >
+          <div class="w:fit-content h:fit-content border-radius:5 px:2 py:2 bg-color:main-1 box-sizing:border-box">
+            <div class="mb:1 text-align:center box-sizing:border-box fw:3 color:main-5" th:text="${monthDay}">
+              3/9
+            </div>
+            <div class="text-align:center box-sizing:border-box color:base-4 fw:3" th:text="${time}">11:15</div>
           </div>
-          <div class="text-align:center box-sizing:border-box color:base-4 fw:3" th:text="${time}">11:15</div>
-        </div>
-        <div class="">
-          <div class="fs:3 mb:1" th:text="${event.title}">종이달</div>
-          <div class="fs:2 color:base-5 deco icon:map_pin icon-color:main-5 deco deco-margin-right:1"
-               th:text="${event.location}">노멤버라운지
+          <div class="">
+            <div class="fs:3 mb:1" th:text="${event.title}">종이달</div>
+            <div class="fs:2 color:base-5 deco icon:map_pin icon-color:main-5 deco deco-margin-right:1"
+                 th:text="${event.location}">노멤버라운지
+            </div>
           </div>
+          <div class="d-day fs:3 mb:1 ml:auto fw:3 fs:4 mr:2"></div>
         </div>
-        <div class="d-day fs:3 mb:1 ml:auto fw:3 fs:4 mr:2"></div>
       </div>
-</div>
 
-      <button class="fs:3 mt:4 px:2 py:1 border-radius:5 bg-color:main-1 color:main-5" id="show-more">+ more</button>
+      <!--      <button class="fs:3 mt:4 px:2 py:1 border-radius:5 bg-color:main-1 color:main-5 d:none" id="show-more">+ more-->
+      <!--      </button>-->
     </section>
 
     <div class="w:100p border-bottom border-width:3 border-color:base-2"><span class="d:none">선</span></div>
     <section class="my:5 px:3">
-      <h1 class="fs:6 fw:3 color:base-8 mb:4">
+      <h1 class="fs:6 fw:3 color:base-9 mb:4">
         위드맴버
         <span th:text="${withMemberCnt +' 명'}">7명</span>
       </h1>
 
       <!-- 여기 inline flex 추가  -->
-      <div class="d:inline-flex mx:2 ai:center mr:4" th:each=" wm : ${withMemberList}">
-        <div class="w:1 h:1 mr:3">
+      <div class="d:inline-flex  ai:center my:2 mx:2" th:each=" wm : ${withMemberList}">
+        <div class=" mr:3" style="height: 40px; width: 40px ">
           <img class="mr:5 d:inline-block h:100p w:100p border-radius:full" th:src="${wm.img}"/>
         </div>
         <div class="d:flex ai:center flex-direction:column">
@@ -256,7 +276,8 @@
                th:classappend="${wm.masterYn} ?'deco  deco-pos:right  icon-color:main-5 icon:star_fill' :''"
                th:text="${wm.nickName}">뉴렉이
           </div>
-          <div class="color:base-3 fs:2" th:text="${wm.joinDate}">2023.02.23</div>
+
+          <div class="color:base-3 fs:2"     th:text="${#temporals.format(wm.joinDate,'yy-MM-dd')}">2023.02.23</div>
         </div>
       </div>
     </section>
@@ -264,7 +285,7 @@
     <div class="w:100p border-bottom border-width:3 border-color:base-2"><span class="d:none">선</span></div>
 
     <section class="my:5 board-list">
-      <h1 class="fs:6 fw:3 color:base-8 mb:4">자유게시판</h1>
+      <h1 class="fs:6 fw:3 color:base-9 mb:4">자유게시판</h1>
 
       <section class="border-bottom px:3 pb:2 mb:3" th:each="b : ${freeBoardList}">
         <h1 class="d:none">게시글</h1>
@@ -292,10 +313,10 @@
             i like what i like
           </p>
 
-          <div class="border border-color:base-3 w:100p h:4 border-radius:5"
+          <div class="border border-color:base-3 md:w:4p rg:w:4p  md:mx:auto rg:mx:auto  mt:4 border-radius:3 h:4 border-radius:5"
                th:if="${b.imgs.size()>0}"
           >
-            <img class="w:100p h:4"
+            <img class="w:100p h:4 border-radius:3 "
                  src="/image/shorts/"
                  th:if="${b.imgs.size()>0}"
                  th:src="${b.imgs[0]}"
@@ -303,7 +324,7 @@
           </div>
         </div>
 
-        <div class="mt:2 d:flex ai:center">
+        <div class="mt:3 mb:3 d:flex ai:center">
           <span class="deco d:inline-block border py:1 px:3 border-radius:7 icon:thumbs_up mr:3" th:text="${b.likeCnt}">12</span>
           <span class="deco d:inline-block py:1 px:3 border-radius:7 border icon:chat"
                 th:text="${b.commentCnt}">12</span>
@@ -313,6 +334,31 @@
 
     </section>
   </div>
+  <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+    <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+      <ul class="mb:2 color:base-5 d:flex">
+        <li>서비스 이용약관 | </li>
+        <li class="ml:1">개인정보 처리방침 |</li>
+        <a class="ml:1" href="">회사 안내</a>
+      </ul>
+
+      <ul class="mb:2 color:base-5 d:flex fs:2">
+        <li class="fs:2">제휴 및 대외 협력 |</li>
+        <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+      </ul>
+      <ul class="color:base-6 d:flex fs:2">
+        <li class="fs:2">주식회사 위드북스</li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+          All rights reserved.
+        </li>
+      </ul>
+    </section>
+  </footer>
 </main>
 </body>
 </html>

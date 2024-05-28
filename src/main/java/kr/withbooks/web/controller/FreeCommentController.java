@@ -26,6 +26,7 @@ public class FreeCommentController {
         , @RequestParam(name="wid") Long withId
         , @RequestParam(name="p") int page
         , @RequestParam(name="s") String sort
+        , @RequestParam(name="m", required = false) int m
         , @RequestParam String comment
         , @RequestHeader("Referer") String referer
         , @AuthenticationPrincipal CustomUserDetails userDetails
@@ -37,8 +38,10 @@ public class FreeCommentController {
 
       freeCommentService.reg(freeBoardId, userDetails.getId(), comment);
 
+
       String queryString = new StringBuilder()
-                                .append("fid=").append(freeBoardId)
+                                .append("m=").append(m)
+                                .append("&fid=").append(freeBoardId)
                                 .append("&wid=").append(withId)
                                 .append("&p=").append(page)
                                 .append("&s=").append(sort)

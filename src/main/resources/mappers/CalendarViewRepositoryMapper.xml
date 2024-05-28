@@ -10,6 +10,7 @@
         *
         FROM calendar_view
         WHERE with_id = #{withId}
+        ORDER BY start_date_time desc
     </select>
 
 </mapper>

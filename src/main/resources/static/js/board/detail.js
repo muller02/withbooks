@@ -143,7 +143,7 @@ window.addEventListener('load', function(e) {
                     <form class="d:flex fl-dir:column py:2">
 <!--                            <div class="d:flex fl-dir:column py:2">-->
                             <div class="comment-area ml:6 mt:2 mr:1 pos:relative d:flex fl-dir:column ai:end">
-                                <textarea id="comment-edit-body" class="fs:2 bg-color:main-2 bd-radius:4 bd-tr-radius:0 px:3 pt:2 pb:2 mb:1 w:fit-content">${content}</textarea>
+                                <textarea id="comment-edit-body" class="fs:2 bg-color:main-2 bd-radius:4 bd-tr-radius:0 px:3 pt:2 pb:2 mb:1 w:8p">${content}</textarea>
                                 <div class="delete-button pos:absolute right:1 bottom:1"></div>
                                 
                                 <input type="hidden" id="comment-edit-commentId">

@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>위드</title>
-  <script defer src="/js/with/list.js"></script>
+  <title>위드북스</title>  <script defer src="/js/with/list.js"></script>
   <style>
 
 
@@ -192,7 +191,7 @@
           <!-- th:with img-->
           <div class="w:2 h:2 box-shadow border-color:base-2 border-radius:3 my:auto flex-shrink:0">
             <img class="w:100p h:100p border-radius:3" src="/image/with/puppy2.png"
-                 th:src="${with.img}"/>
+                 th:src="${with.img}" onerror="this.src='/image/with/with_profile.png';"/>
           </div>
 
           <div class="d:flex gap:1 flex-direction:column flex-grow:1">
@@ -236,6 +235,31 @@
     <a class="icon icon:arrow_up icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:1 icon-size:5 border-radius:full h:1 w:1 zi:5"
        href="#main"></a>
   </section>
+  <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+    <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+      <ul class="mb:2 color:base-5 d:flex">
+        <li>서비스 이용약관 | </li>
+        <li class="ml:1">개인정보 처리방침 |</li>
+        <a class="ml:1" href="">회사 안내</a>
+      </ul>
+
+      <ul class="mb:2 color:base-5 d:flex fs:2">
+        <li class="fs:2">제휴 및 대외 협력 |</li>
+        <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+      </ul>
+      <ul class="color:base-6 d:flex fs:2">
+        <li class="fs:2">주식회사 위드북스</li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+      </ul>
+      <ul class="color:base-6">
+        <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+          All rights reserved.
+        </li>
+      </ul>
+    </section>
+  </footer>
 </main>
 </body>
 </html>

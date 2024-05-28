@@ -23,7 +23,7 @@ import kr.withbooks.web.service.BookshrotsService;
     @Autowired
     private BookshrotsService shortsService;
     
-    @GetMapping("/")
+    @GetMapping({"/","index"})
     public String home(Model model){
         
         List<BookshortsView> shortsList = shortsService.getBestList();

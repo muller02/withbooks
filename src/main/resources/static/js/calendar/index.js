@@ -48,9 +48,9 @@ document.addEventListener("DOMContentLoaded", () => {
       now: new Date(),
       // themeSystem: "bootstrap5",
       headerToolbar: {
-        left: "prev,next today",
+        left: "prev",
         center: "title",
-        right: "dayGridMonth,timeGridWeek,timeGridDay,listWeek",
+        right: "next",
       },
       initialView: "dayGridMonth",
       navLinks: true,
@@ -229,4 +229,48 @@ document.addEventListener("DOMContentLoaded", () => {
   const wid = getWidFromUrl();
   getDataToServer(wid);
   console.log(wid);
+
+  // *** 풀캘린더 라이브러리에서 반응형 구현하기 ***
+  setTimeout(() => {
+    const dateBox = document.querySelector(".fc-toolbar-title"); // 날짜 상자
+    const daygridNumbers = document.querySelectorAll(".fc-daygrid-day");
+
+    /** 화면 크기가 변경될 때마다 실행할 함수 **/
+    function adjustFontSize() {
+      // 현재 화면 크기가 414px 이하인지 확인
+      const isMobile414 = window.matchMedia("(max-width: 414px)").matches;
+      const isMobile350 = window.matchMedia("(max-width: 350px)").matches;
+
+      // 폰트 크기를 조절할 클래스
+      const smallFontClass = "small-font";
+      const smallTitleClass = "small-title";
+
+      // 날짜 상자 폰트 크기 조절
+      if (isMobile350) {
+        dateBox.classList.add(smallTitleClass);
+        dateBox.style.fontSize = "14px";
+      } else if (isMobile414) {
+        dateBox.classList.add(smallTitleClass);
+        dateBox.style.fontSize = "18px";
+      } else {
+        dateBox.classList.remove(smallTitleClass);
+        dateBox.style.fontSize = "";
+      }
+
+      // 날짜 숫자 폰트 크기 조절
+      daygridNumbers.forEach((number) => {
+        if (isMobile414 || isMobile350) {
+          number.classList.add(smallFontClass);
+        } else {
+          number.classList.remove(smallFontClass);
+        }
+      });
+    }
+
+    // 페이지 로드시 폰트 크기 조절
+    adjustFontSize();
+
+    // 화면 크기 변경 이벤트 리스너 등록
+    window.addEventListener("resize", adjustFontSize);
+  }, 200); // 적절한 시간을 설정하여 풀캘린더 초기화 및 렌더링이 완료된 후에 작업 수행
 });

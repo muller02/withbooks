@@ -1,6 +1,7 @@
 /* body 스타일 */
 html, body {
     overflow: hidden;
+    height: auto;
 }
 
 /* 캘린더 위의 해더 스타일(날짜가 있는 부분) */
@@ -38,10 +39,6 @@ html, body {
     }
 }
 
-.fc-scrollgrid-section fc-scrollgrid-section-header {
-    background-color: #e5edff;
-}
-
 .fc-toolbar-title {
     font-weight: bold;
 }
@@ -62,11 +59,15 @@ html, body {
     text-decoration: none;
 }
 
-/* 오늘 날짜 글씨색 */
-.fc .fc-daygrid-day.fc-day-today {
-    background-color: #fff8bd;
-    color: #356eff;
-}
+/*!* 오늘 날짜에 해당하는 스타일 *!*/
+/*.fc .fc-daygrid-day.fc-day-today {*/
+/*    background-color: #fff8bd; !* 배경색 *!*/
+/*    color: red; !* 글자색 *!*/
+/*    display: inline-block; !* 박스로 감싸진 형태로 표시 *!*/
+/*    border: 2px solid #356eff; !* 테두리 스타일 및 색상 설정 *!*/
+/*    border-radius: 4px; !* 테두리의 둥근 정도 설정 *!*/
+/*    padding: 3px 6px; !* 위아래로 3px, 좌우로 6px의 간격 *!*/
+/*}*/
 
 /* 날짜별 그리드 */
 .fc .fc-daygrid-day-frame {
@@ -89,10 +90,78 @@ html, body {
     /*    font-size: 14px;*/
 }
 
-.fc-event-title-container {
-    background-color: #2FB916;
+.fc-event {
+    border: none;
+    border-radius: 4px;
+    background-color: #ffecd7; /* 배경색 */
+    color: #ff971d; /* 글자색 */
 }
 
 .fc-event-time {
     display: none;
 }
+
+/* 하루를 초과하는 일정의 텍스트 색상 변경 */
+.fc-event-title-container {
+    color: #ff971d;
+    font-weight: bold;
+}
+
+/* 화살표 아이콘 크기 및 굵기 조절 */
+.fc-icon {
+    font-size: 2rem !important; /* 폰트 크기를 2rem로 설정 */
+    font-weight: bold !important; /* 글꼴 굵기를 굵게 설정 */
+    width: 2rem !important; /* 아이콘의 너비를 2rem로 설정 */
+    height: 2rem !important; /* 아이콘의 높이를 2rem로 설정 */
+    line-height: 2rem !important; /* 아이콘의 라인 높이를 2rem로 설정 */
+}
+
+
+/* 반응형 - 화면 크기가 414px 이하일 때 */
+@media (max-width: 418px) {
+    :root {
+        font-size: 12px; /* 작은 화면에서 폰트 크기를 줄임 */
+    }
+
+    .small-font {
+        font-size: 1rem; /* 1rem 단위를 사용 */
+    }
+
+    .fc-toolbar-title {
+        font-size: 18px; /* 작은 화면에서 폰트 크기를 줄임 */
+    }
+
+    .fc-toolbar-title.small-title {
+        font-size: 18px; /* 작은 화면에서 폰트 크기를 더 줄임 */
+    }
+
+    .fc-icon {
+        font-size: 2.5rem !important; /* 작은 화면에서 폰트 크기를 더 크게 설정 */
+        width: 2.5rem !important; /* 작은 화면에서 아이콘의 너비를 더 크게 설정 */
+        height: 2.5rem !important; /* 작은 화면에서 아이콘의 높이를 더 크게 설정 */
+        line-height: 2.5rem !important; /* 작은 화면에서 아이콘의 라인 높이를 더 크게 설정 */
+    }
+}
+
+/* 반응형 - 화면 크기가 350px 이하일 때 */
+@media (max-width: 350px) {
+    :root {
+        font-size: 10px; /* 아주 작은 화면에서 폰트 크기를 더 줄임 */
+    }
+
+    .small-font {
+        font-size: 0.8rem; /* 0.8rem 단위를 사용하여 더 작은 폰트 크기 적용 */
+    }
+
+    .fc-toolbar-title.small-title {
+        font-size: 14px; /* 더 작은 화면에서 폰트 크기를 더 줄임 */
+    }
+
+    .fc-icon {
+        font-size: 3rem !important; /* 더 작은 화면에서 폰트 크기를 더 크게 설정 */
+        width: 3rem !important; /* 더 작은 화면에서 아이콘의 너비를 더 크게 설정 */
+        height: 3rem !important; /* 더 작은 화면에서 아이콘의 높이를 더 크게 설정 */
+        line-height: 3rem !important; /* 더 작은 화면에서 아이콘의 라인 높이를 더 크게 설정 */
+    }
+}
+

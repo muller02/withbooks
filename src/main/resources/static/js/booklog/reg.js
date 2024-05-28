@@ -269,8 +269,8 @@ window.addEventListener("load", function () {
                 }
 
                 // 크기 제약
-                if (file.size > 13 * 1024) {
-                    alert("이미지가 너무 큽니다.(13*1024)");
+                if (file.size > 500 * 1024) {
+                    alert("이미지가 너무 큽니다.(50*1024)");
                     return;
                 }
 

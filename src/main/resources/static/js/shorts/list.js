@@ -43,10 +43,10 @@ window.addEventListener("load",function (e){
   const writeBtn = document.querySelector(".write-btn");
 
   writeBtn.addEventListener("click",(e)=>{
-    if(getJSessionID() ==null){
-      loginModal();
-      e.preventDefault();
-    }
+  //   if(getJSessionID() ==null){
+  //     loginModal();
+  //     e.preventDefault();
+  //   }
 
 
   })
@@ -67,8 +67,8 @@ window.addEventListener("load",function (e){
     console.log(regBtn);
     if (getJSessionID() !=1) {
       // alert('로그인을 먼저하세요 ')
-      loginModal();
-      regBtn.disabled  =true;
+      // loginModal();
+      // regBtn.disabled  =true;
 
     }
 
@@ -247,7 +247,7 @@ window.addEventListener("load", () => {
   shortSections.forEach((short) => {
     let pages = 0; // 현재 인덱스 번호
     let positionValue = 0; // images 위치값
-    const IMAGE_WIDTH = 350; // 한번 이동 시 IMAGE_WIDTH만큼 이동한다.
+    const IMAGE_WIDTH = 300; // 한번 이동 시 IMAGE_WIDTH만큼 이동한다.
 
     const nextBtn = short.querySelector(".next");
     const backBtn = short.querySelector(".back");
@@ -311,118 +311,95 @@ function getCommentList(shortsId, comments, getCommentCount) {
   let commentCount = 0;
 
   fetch(`/api/comments/list?shorts_id=${shortsId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      console.log(data);
-      let commentList = data.list;
-      let userId = data.userId;
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        let commentList = data.list;
+        let userId = data.userId;
 
-      commentList.forEach((cmt) => {
-        let formattedDate = moment(cmt.regDate).format('YY-MM-DD HH:mm');
+        commentList.forEach((cmt) => {
+          let formattedDate = moment(cmt.regDate).format('YY-MM-DD HH:mm');
 
-        commentCount++; //댓글 갯수 카운트
-        // icon icon-size:2 icon-color:accent-2 icon:trash
-        let divHTML = `
-                    <div class="border-bottom  pt:3  pl:2 ">
-                    <div class="d:flex ai:center " >
-                    <div class="border-radius:full of:hidden mr:1  comment-user-img mr:2 "> 
-                        <img src="${cmt.img}" class="  w:100p h:100p">
-                     </div>
-                     <span></span>
-                      <div class=" mr:auto  fw:2 ">${cmt.nickname}</div>
-                      `;
+          commentCount++; // 댓글 갯수 카운트
+          let divHTML = `
+          <div class="border-bottom pt:3 pl:2">
+            <div class="d:flex ai:center">
+              <div class="border-radius:full of:hidden mr:1 comment-user-img mr:2">
+                <img src="${cmt.img}" class="w:100p h:100p">
+              </div>
+              <span></span>
+              <div class="mr:auto fw:2">${cmt.nickname}</div>
+              `;
 
+          if (cmt.userId == userId) {
+            divHTML += `
+            <div class="n-dropdown comment-dropdown">
+              <button class="cursor:pointer dropdown-btn">
+                <span class="comment-dots-icon icon icon:dots_three_outline_vertical_fill icon-size:3 color-icon rg-comment-hover"></span>
+              </button>
+              <ul class="dropdown-list w:2 comment-modal-transform comment-dropdown-list">
+                <li>
+                  <button class="va:middle delete-comment text-align:center color:accent-2" data-commentId="${cmt.id}">
+                    삭제하기
+                  </button>
+                </li>
+              </ul>
+            </div>
+            `;
+          }
 
-                      
-                      if(cmt.userId == userId){
-                      divHTML+=`
-                      <div class="n-dropdown comment-dropdown">
-                        <button class="cursor:pointer dropdown-btn">
-                          <span class="comment-dots-icon icon icon:dots_three_outline_vertical_fill icon-size:3 color-icon rg-comment-hover"></span>
-                        </button>
-                        <ul class="dropdown-list w:2 comment-modal-transform comment-dropdown-list ">
-                        
-                          <li>
-               
-                             <button class="va:middle delete-comment text-align:center color:accent-2" data-commentId="${cmt.id}" >
-                              삭제하기
-                          </button>
+          divHTML += `
+            </div>
+            <div class="mt:3 comment-content-color pl:2 fs:2">${cmt.content}</div>
+            <div class="ml:auto fs:1 color:base-3 mb:2 d:flex jc:end">${formattedDate}</div>
+          </div>
+        `;
 
+          comments.insertAdjacentHTML("beforeend", divHTML);
+        });
 
-                          </li>
-<!--                          <li>-->
-<!--               -->
-<!--                          <button class="va:middle text-align:center	  color:accent-2 ">-->
-<!--                            수정하기-->
-<!--                          </button>-->
-
-<!--                        </li>-->
-            
-                          </ul>
-                      </div>
-                      `;
-                      };
-
-                      divHTML+=`
-                    </div>
-                    <div class=" mt:3 comment-content-color  pl:2 fs:2">${cmt.content}</div>
-                    <div class="ml:auto fs:1 color:base-3 mb:2 d:flex jc:end">${formattedDate}</div>
-                  </div>
-                  `;
-
-        comments.insertAdjacentHTML("beforeend", divHTML);
-      });
-
-      if (getCommentCount !== null)
-        getCommentCount(commentCount);
-    })
-
-    .catch((error) => console.error("Error:", error));
+        if (getCommentCount !== null)
+          getCommentCount(commentCount);
+      })
+      .catch((error) => console.error("Error:", error));
 }
 
 
 
+document.addEventListener("click", function (e){
 
-  document.addEventListener("click", function (e){
+  // 내가 선택한 것이 delete-comment가 아니면 종료
+  if (!e.target.closest(".delete-comment"))
+    return;
 
-    // 내가 선택한 것이 delete-comment가 아니면 종료
-    if(!e.target.closest(".delete-comment"))
-      return
+  let target = e.target;
 
-    let target =e.target;
+  let commentGroup = target.closest(".comment-group");
+  let commentBtn = commentGroup.previousElementSibling.querySelector(".comment-btn")
+  let shortsId = commentBtn.dataset.shortsId;
+  let comments = commentGroup.querySelector(".comments");
+  let countComment = commentBtn.nextElementSibling;
 
-    let commentGroup = target.closest(".comment-group");
-    let commentBtn = commentGroup.previousElementSibling.querySelector(".comment-btn")
-    let shortsId = commentBtn.dataset.shortsId;
-    let comments = commentGroup.querySelector(".comments");
-    let countComment = commentBtn.nextElementSibling;
+  // 선택한 댓글의 commentId 저장
+  let commentId = target.dataset.commentid;
 
-    // 선택한 댓글의 commentId  저장
-    let commentId = target.dataset.commentid
+  // api delete 요청
+  let url = `/api/comments?cmtId=${commentId}`;
 
-    //api delete 요청
-    let url  =`/api/comments?cmtId=${commentId}`;
-
-    fetch(url,{method:"DELETE"}).then(response=>{
-      if (!response.ok) {
-        throw new Error("서버 요청에 실패");
-      }
-    })
-        .catch(error=>{
-          console.error("fetch 호출 중 에러 발생:", error);
-
-        })
-
-    setTimeout( getCommentList(shortsId,comments,function (commentCount) {
-      countComment.innerHTML = commentCount;
-    }),2000)
-    // 코멘틀 리스트  출력 , 코멘트 숫자 갱신
-
-
-
-
-  })
-
+  fetch(url, { method: "DELETE" })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error("서버 요청에 실패");
+        }
+        // 코멘트 리스트 출력 , 코멘트 숫자 갱신
+        getCommentList(shortsId, comments, function(commentCount) {
+          countComment.innerHTML = commentCount;
+        });
+      })
+      .catch(error => {
+        console.error("fetch 호출 중 에러 발생:", error);
+      });
+});
 
 
 
@@ -541,8 +518,8 @@ window.addEventListener("load", function (e) {
     // input에 내용이 있어야 버튼 활성화 가능 함수
     function  updateButtonState(){
       if(getJSessionID() ==null){
-        commentReg.disabled =true;
-      return
+      //   commentReg.disabled =true;
+      // return
       }
 
       if(commentContent.value.trim() === "" || commentContent.value.trim() ===null){
@@ -557,8 +534,8 @@ window.addEventListener("load", function (e) {
     //댓글 input창에 입력될 때 마다 함수 호출
     commentContent.addEventListener("input",updateButtonState);
 
-    if(getJSessionID() ==null)
-      commentReg.disabled =true;
+    // if(getJSessionID() ==null)
+    //   commentReg.disabled =true;
 
     commentReg.onclick = function (e) {
       let content = commentContent.value;

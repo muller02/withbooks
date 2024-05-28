@@ -4,9 +4,9 @@
 <head>
   <meta charset='utf-8'/>
   <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>모임일정</title>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+  <title>위드북스</title>  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
   <script defer src="/js/calendar/index.js"></script>
+  <script defer src="/js/calendar/tmp.js"></script>
 
   <link href="/css/components/calendar.css" rel="stylesheet" type="text/css"/>
   <style>
@@ -35,7 +35,7 @@
 
   <!-- modal -->
   <section
-          class="n-modal d:none lg:pos:absolute top:4 mx:10 right:1p left: zi:5  border-color:sub-4 border-radius:5 box-shadow-custom bg-color:main-1"
+          class="n-modal d:none lg:pos:absolute mx:10 right:4p lg:right:1p top:5p lg:top:4p zi:5  border-color:sub-4 border-radius:5 box-shadow-custom bg-color:main-1"
           id="calendar-modal" tabindex="-1">
     <form class="event-form">
       <h1 class="fs:5 font-weight:3">일정 등록</h1>
@@ -68,12 +68,12 @@
             <!-- 시작 시간 입력 필드 -->
             <div class="d:inline-block flex-grow:1" id="start-time-group">
               <label class="d:none" for="start-time">시작 시간</label>
-              <input class="form-control w:100p" id="start-time" type="datetime-local">
+              <input class="form-control w:100p" id="start-time" type="time">
             </div>
             <!-- 종료 시간 입력 필드 -->
             <div class="d:inline-block flex-grow:1" id="end-time-group">
               <label class="d:none" for="end-time">종료 시간</label>
-              <input class="form-control w:100p" id="end-time" type="datetime-local">
+              <input class="form-control w:100p" id="end-time" type="time">
             </div>
           </div>
         </div>

@@ -174,19 +174,19 @@
                     <h1 class="d:none">토론카드 컨텐츠</h1>
                     <div class="mb:3 bd-bottom">
                         <section class="d:flex fl-dir:column ai:center gap:1 mx:9 pt:2 pb:5">
-                            <div class="fs:1 color:base-4" th:text="${book.title}">도둑맞은 집중력</div>
-                            <div class="fs:3">"<span th:text="${topic.content}">재홍이는 진짜 일뽕인가</span>"</div>
-                            <h1 class="fs:6" th:text="${board.title}">일뽕재홍</h1>
+                            <div class="fs:1 md:fs:2 lg:fs:2 color:base-4" th:text="${book.title}">도둑맞은 집중력</div>
+                            <div class="fs:2 md:fs:3 ls:fs:3 color:base-6">"<span th:text="${topic.content}">재홍이는 진짜 일뽕인가</span>"</div>
+                            <h1 class="fs:3 md:fs:4 lg:fs:5 fw:2" th:text="${board.title}">일뽕재홍</h1>
                             <div class="d:flex gap:1 jc:center ai:center">
                                 <span class="d:flex jc:center">
                                     <img class="profile-image w:1 h:1" src="/image/shorts/profile.png" th:src="${user.img}" alt="이치고경인">
                                 </span>
-                                <span class="gap:1" >
-                                    <i class="fs:1">by</i>
-                                    <span class="fs=1" th:text="${user.nickname}">이치고경인</span>
+                                <span class="gap:1 fs:1 md:fs:2 lg:fs:2 color:base-4" >
+                                    <i class="">by</i>
+                                    <span class="" th:text="${user.nickname}">이치고경인</span>
                                 </span>
                             </div>
-                            <span class="fs:1" th:text="${#temporals.format(board.regDate,'yyyy-MM-dd HH:mm:ss')}">2024-03-27 23:03:26</span>
+                            <span class="fs:1 color:base-5" th:text="${#temporals.format(board.regDate,'yyyy-MM-dd HH:mm:ss')}">2024-03-27 23:03:26</span>
                         </section>
                     </div>
                     <div class="card-note-media">
@@ -205,7 +205,7 @@
                     <div class="card-note-body  px:6 mt:5">
                         <section class="h:100p ln-h:1.5 px:4 py:3 txt-al:left of-y:auto pb:5">
                             <h1 class="d:none">토론카드 코멘트</h1>
-                            <div th:utext="${board.content}">
+                            <div class="fs:3" th:utext="${board.content}">
                                 <p>
                                     우리는 집중하지 못하고 산만해지는 것이 흔히 스마트폰과 같은 디지털 기기에 대해 자제력을 발휘하지 못하는 개인의 실패라고 생각한다. 그러나 그렇지 않다. 저자는 현재 우리가 겪고 있는 집중력 문제가 현대 사회의 비만율의 증가와 유사하다고 설명한다.
                                     정크푸드를 중심으로 한 식품 공급 체계와 생활 방식의 변화가 비만율 증가를 만든 것처럼, 집중력 위기의 광범위한 증가도 현대 사회 시스템이 만들어낸 유행병과 같다는 것이다.
@@ -283,7 +283,7 @@
                 </section>
 
                 <section class="pt:3 px:3  d:inline-block w:10p"
-                         th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id eq loginUser.id and isWithMember != null}">
+                         th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id eq loginUser.id  and isWithMember != null}">
                     <h1 class="d:none">댓글 입력란</h1>
                     <form class="d:flex ">
                         <div class="flex-grow:1">

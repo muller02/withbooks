@@ -1,4 +1,4 @@
-window.addEventListener("load", (e) => {
+window.addEventListener("DOMContentLoaded", (e) => {
   let contentDiv = document.querySelector("#content");
   let menuTap = document.querySelector(".menu-tap");
   let withInfoSection = document.querySelector("#with-info");
@@ -77,6 +77,8 @@ window.addEventListener("load", (e) => {
         withJoinBtn.textContent = "탈퇴하기";
         // disabled 지움
         withJoinBtn.removeAttribute("disabled");
+
+        window.location.reload();
       }, 800);
     });
   });
@@ -128,16 +130,26 @@ window.addEventListener("load", (e) => {
     element.querySelector(".d-day").textContent = dDayText;
 
     if (index >= 3) {
-      element.style.display = "none";
+      element.style.display = "d:none";
     }
   });
 
-  document.getElementById("show-more").addEventListener("click", function () {
-    eventElements.forEach(function (element, index) {
-      if (index >= 3) {
-        element.style.display = "flex";
-      }
-    });
-    this.style.display = "none";
-  });
+  // // *** more 버튼 누르기 ***
+  // const showMore = document.getElementById("showMore");
+  // if (eventElements.length <= 3) {
+  //   showMore.style.display = "d:none";
+  // }
+  //
+  // showMore.addEventListener("click", function () {
+  //   const events = document.querySelectorAll(".event");
+  //   events.forEach(function (element, index) {
+  //     if (index >= 3) {
+  //       const dDayElement = element.querySelector(".d-day");
+  //       if (dDayElement) {
+  //         dDayElement.classList.add("d:flex");
+  //       }
+  //     }
+  //   });
+  //   this.style.display = "none";
+  // });
 });

@@ -43,7 +43,7 @@
   </style>
 </head>
 <body>
-<main class="flex-grow:1" layout:fragment="main">
+<main class="flex-grow:1 pb:10" layout:fragment="main">
 
   <!-- 로그인 안내 모달 -->
   <section class="n-modal d:none  modal-transform-xy" id="login-modal" tabindex="-1">
@@ -179,7 +179,6 @@
     </ul>
   </section>
 
-
   <section class="with-list">
     <h1 class="d:none">위드 리스트</h1>
     <ul class="n-list n-card-list pt:3 pl:2 pr:2 with-list-ul">
@@ -207,20 +206,20 @@
             </div>
             <div class="d:flex ai:center gap:1 ai:center">
               <div class="d:flex ai:center">
-                <span class="icon icon:chat_circle icon-size:2"></span>
+                <span class="icon icon:user icon-size:2"></span>
                 <span class="fs:2 color:base-5 ml:1"
                       th:text="${with.memberCnt + ' / ' +with.personnel +' 명' }">5명/12명</span>
               </div>
               <!-- <span>·</span> -->
               <div class="d:flex ai:center">
-                <span class="icon icon:chat_circle icon-size:2"></span>
+                <span class="icon icon:calendar_check icon-size:2"></span>
                 <span class="fs:2 color:base-5 ml:1" th:text="'월 ' + ${with.interval} + ' 회'">월 1회</span>
               </div>
               <!-- <span>·</span> -->
             </div>
-
-            <div class="d:flex ai:center">
-              <span class="icon icon:chat_circle icon-size:2"></span>
+            <!-- 대면인 경우만 보이기 -->
+            <div class="d:flex ai:center" th:if="${with.faceYn == 1}">
+              <span class="icon icon:map_pin_fill icon-size:2"></span>
               <span class="fs:2 color:base-5 ml:1" th:text="${with.location}">노고산동</span>
             </div>
             <div class="ln-clamp:3">
@@ -233,40 +232,33 @@
       </li>
     </ul>
 
-
-
-    <div th:text="${count}">a123</div>
-    <section class="mt:5 d:flex jc:center"
+    <section id="pager" class="mt:5 d:flex jc:center"
              th:with="
-                tmpa = (${count}-1) / 10,
-                lastestPage = ${T(java.lang.Math).floor(tmpa)} + 1,
-                tmp = (${{param.p}}-1) / 5,
-                startnum = ${T(java.lang.Math).floor(tmp)} * 5 + 1
-            "
+                        tmpa = (${count}-1) / 10,
+                        lastestPage = ${T(java.lang.Math).floor(tmpa)} + 1,
+                        tmp = (${{param.p}}-1) / 5,
+                        startnum = ${T(java.lang.Math).floor(tmp)} * 5 + 1
+                      "
     >
       <h1 class="d:none">페이저</h1>
       <ul class="d:flex jc:center ai:center" th:unless="${lastestPage} lt 1">
         <li th:unless="${startnum} eq 1">
-          <a class="icon icon:caret_left" href="">이전</a>
+          <a class="icon icon:caret_left" href="" th:href="@{./list(m=3,p=${startnum}-1)}">이전</a>
         </li>
 
         <li class="ml:3" th:each="n : ${#numbers.sequence(startnum, startnum+4)}" th:if="${n le lastestPage}">
           <a class="px:3 py:1 color:base-9 bd bd-radius:4"
              th:classappend="${{param.p}} == ${n} ? 'cur-page'"
-             th:href="@{./list(p=${n})}"
+             th:href="@{./list(m=3,p=${n})}"
              th:text="${n}"
           >1</a>
         </li>
         <li class="ml:3" th:if="${startnum + 5} le ${lastestPage}">
-          <a class="icon icon:caret_right" href="">다음</a>
+          <a class="icon icon:caret_right" href="" th:href="@{./list(m=3,p=${startnum}+5)}">다음</a>
         </li>
       </ul>
     </section>
   </section>
-
-
-
-
 
   <section>
     <h1 class="d:none">플로팅버튼</h1>
@@ -283,6 +275,31 @@
       ></a>
     </div>
   </section>
+    <footer class=" mx:auto pb:8 pt:4 fs:2 ">
+      <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
+        <ul class="mb:2 color:base-5 d:flex">
+          <li>서비스 이용약관 | </li>
+          <li class="ml:1">개인정보 처리방침 |</li>
+          <a class="ml:1" href="">회사 안내</a>
+        </ul>
+
+        <ul class="mb:2 color:base-5 d:flex fs:2">
+          <li class="fs:2">제휴 및 대외 협력 |</li>
+          <li class="ml:1"><a href="" class="fs:2" target="_blank">https://withbooks.team/contact</a></li>
+        </ul>
+        <ul class="color:base-6 d:flex fs:2">
+          <li class="fs:2">주식회사 위드북스</li>
+        </ul>
+        <ul class="color:base-6">
+          <li class="fs:2">사업자 등록 번호<span> 123-45-67890</span></li>
+        </ul>
+        <ul class="color:base-6">
+          <li class="fs:2">© 2024 by WITHBOOKS, Inc.
+            All rights reserved.
+          </li>
+        </ul>
+      </section>
+    </footer>
 </main>
 </body>
 </html>

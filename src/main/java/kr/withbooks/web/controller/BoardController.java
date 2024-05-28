@@ -12,7 +12,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.List;
@@ -161,17 +164,26 @@ public class BoardController {
 
         List<DebateTopic> topicList = debateTopicService.getList(roomId);
         model.addAttribute("topicList", topicList);
+        model.addAttribute("board", new DebateBoard());
 
         return "board/reg";
     }
 
     @PostMapping("/reg")
     public String reg(
-            @ModelAttribute BoardForm boardForm,
+            @Validated @ModelAttribute(name = "board") BoardForm boardForm, BindingResult bindingResult,
             @RequestParam("rid") Long roomId,
             @RequestParam(name = "wid") Long withId,
             @AuthenticationPrincipal CustomUserDetails userDetails,
+            Model model,
             HttpServletRequest request) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            List<DebateTopic> topicList = debateTopicService.getList(roomId);
+            model.addAttribute("topicList", topicList);
+            return "board/reg";
+        }
 
         Long userId = userDetails.getId();
         log.info("userId = {}", userId);
@@ -201,14 +213,15 @@ public class BoardController {
     @GetMapping("/edit")
     public String edit(
             @RequestParam("id") Long id,
-            @RequestParam("wid") Long withId,
-            @RequestParam("rid") Long roomId,
+            @RequestParam(value = "wid", required = false) Long withId,
+            @RequestParam(value = "rid", required = false) Long roomId,
             Model model) {
         DebateBoard debateBoard = debateBoardService.getById(id);
         DebateTopic debateTopic = debateTopicService.getById(debateBoard.getTopicId());
 
         model.addAttribute("board", debateBoard);
         model.addAttribute("debateTopic", debateTopic);
+//        model.addAttribute("id", id);
         return "board/edit";
     }
 
@@ -217,8 +230,19 @@ public class BoardController {
             @RequestParam("id") Long id,
             @RequestParam("wid") Long withId,
             @RequestParam("rid") Long roomId,
-            @ModelAttribute BoardEditForm boardEditForm,
+            @Validated @ModelAttribute("board") BoardEditForm boardEditForm, BindingResult bindingResult,
+            Model model,
             HttpServletRequest request) throws IOException {
+
+        if (bindingResult.hasErrors()) {
+            log.info("errors={}", bindingResult);
+            DebateBoard debateBoard = debateBoardService.getById(id);
+            DebateTopic debateTopic = debateTopicService.getById(debateBoard.getTopicId());
+
+            //model.addAttribute("board", debateBoard);
+            model.addAttribute("debateTopic", debateTopic);
+            return "board/edit";
+        }
 
         // 1. 게시글 정보 수정
         DebateBoard updateBoard = new DebateBoard();

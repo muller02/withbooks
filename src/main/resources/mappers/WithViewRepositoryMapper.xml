@@ -51,9 +51,43 @@
 
 
     limit #{limit} offset #{offset}
-    
+
 <!--  카테고리 아이디 where 필요-->
 </select>
+
+    <select id="count">
+        select count(*) from
+        (
+        select
+            b.*
+        from
+            with_category a
+        right join `with_view` b on a.with_id = b.id
+        <where>
+            blind_yn = 0
+            <if test="categoryIds != null">
+                and a.category_id IN
+                <foreach collection="categoryIds" item="arr" open="(" close=")" separator=",">
+                    #{arr}
+                </foreach>
+            </if>
+
+            <if test="query != null">
+                and (name like '%${query}%' or location like '%${query}%')
+            </if>
+
+            <if test="faceYn != null">
+                <if test="faceYn != 2">
+                    and face_yn=#{faceYn}
+                </if>
+            </if>
+        </where>
+
+        group by
+        b.id
+        ) as subquery
+
+    </select>
 
 
 
