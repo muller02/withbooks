@@ -93,6 +93,11 @@ public class BookshortsServiceImp  implements  BookshrotsService{
     public Integer getCount(Long userid) {
         return shortsViewRepository.count(userid);
     }
-    
+
+    @Override
+    public void edit(Long sid, String content) {
+        repository.update(sid,content);
+    }
+
 
 }

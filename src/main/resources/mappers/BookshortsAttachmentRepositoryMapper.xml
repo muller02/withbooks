@@ -28,5 +28,9 @@
 		where shorts_id = #{id}
 	</select>
 
+	<delete id="remove">
+		delete from shorts_attachment where shorts_id = #{sid} and img = #{imgPath}
+	</delete>
+
 
 </mapper>

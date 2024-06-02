@@ -13,10 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -188,8 +185,43 @@ public class BookshortsController {
     }
 
     @PostMapping("edit")
-    public String edit() {
-        
+    public String edit( @RequestParam(required = false) List<String> imgPaths , HttpServletRequest request , @RequestParam(required = false) Long sid,
+                        @RequestParam(name = "text-area", required = false) String content ,
+                        @RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
+
+
+        shortsAttachmentService.delete(sid, imgPaths,request);
+
+
+
+        service.edit(sid, content);
+
+        String fileName = null;
+
+        for(int i=0; i<files.size(); i++){
+
+            if (!files.get(i).isEmpty()) {
+
+                fileName = files.get(i).getOriginalFilename();
+
+                String path = "/image/shorts";
+                String realPath = request.getServletContext().getRealPath(path);
+                File file = new File(realPath);
+                if(!file.exists())
+                    file.mkdirs();
+
+                File filePath = new File(realPath+File.separator+fileName);
+
+                files.get(i).transferTo(filePath);
+
+
+                BookshortsAttachment shortsAttachment =BookshortsAttachment.builder().shortsId(sid).img(fileName).build();
+                //for문을 돌면서 다중 파일 이미지 이름을 db(shorts_attachment)에 저장
+                shortsAttachmentService.add(shortsAttachment);
+            }
+        }
+
+
 
         return "redirect:/shorts/list";
     }

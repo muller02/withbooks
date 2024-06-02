@@ -8,72 +8,8 @@ window.addEventListener("load", function () {
 
   let previewPanel = formGroup.querySelector(".preview-panel");
 
-  resultList.onclick = function (e) {
-    // 사용자가 클릭한게 책이라면
-    // .book 요소를 선택한다
-    // 그 요소 안에서 h1을 찾는다
-    // 찾은 h1 요소의 textContent 읽는다
-    // textContent를 queryInput에 넣는다
-    if (e.target.closest(".book")) {
-      const book = e.target.closest(".book");
-      const bookH1 = book.querySelector(".book-title");
-      const bookTitle = bookH1.textContent;
 
-      let bookId = book.getElementsByTagName("div")[0].textContent;
-      queryInput.value = bookTitle;
 
-      document.querySelector(".id-input").value = bookId;
-    }
-
-    resultList.innerHTML = "";
-  };
-
-  btn.onclick = function (e) {
-    e.preventDefault();
-
-    var xhr = new XMLHttpRequest();
-    xhr.withCredentials = true;
-
-    //비동기 처리
-    xhr.onload = function () {
-      //콜백 함수
-      resultList.innerHTML = "";
-
-      var list = JSON.parse(this.responseText);
-
-      var bookCount = list.length;
-      searchResultHtml = `<div class="mb:3 ml:2 fw:3 mt:3">검색결과 <span class="fw:3 mt:2">${bookCount} 개</span></div>`;
-      resultList.insertAdjacentHTML("beforeend", searchResultHtml);
-
-      for (book of list) {
-        var sectionHTML = `<section class="book d:flex h:2 ai:center  bg-color:main-1     pl:3  item" >
-                                        <h1 class="d:none">책정보</h1>
-                                        <div class="d:none">${book.id}</div>
-                                        <div class="w:74  mr:5 ">
-                                         <img src="${book.cover}" alt="책이미지" class="h:100p w:100p">
-                                         </div>
-                                         <div class="d:flex jc:center flex-direction:column">
-                                    
-                                          <div class="fs:4 fw:3 book-title">${book.title}</div>
-                                          <div class="fs:2 fw:2 mb:1">${book.author} 저</div>
-                                         <div class="fs:2 color:base-7">${book.publisher}</div>
-                                      <div class="fs:2 color:base-7">${book.pubDate}</div>
-                                        </div>
-                                    </section>`;
-
-        resultList.insertAdjacentHTML("beforeend", sectionHTML);
-
-        book = resultList.querySelector(".book");
-        console.log(book);
-      }
-    };
-
-    // false 를 붙이면 동기
-    var q = queryInput.value;
-
-    xhr.open("GET", `http://localhost:8080/api/book/list?q=${q}`);
-    xhr.send();
-  };
 });
 
 window.onload = function () {
@@ -140,14 +76,14 @@ window.onload = function () {
   queryInput.addEventListener("input", regBtnbgColorChange);
 
   regBtn.onclick = function (e) {
-    if (queryInput.value === "") {
-      alert("책을 입력 해주세요");
-      e.preventDefault();
-    }
-    if (textArea.value === "") {
-      alert("내용을 입력 해주세요");
-      e.preventDefault();
-    }
+    // if (queryInput.value === "") {
+    //   alert("책을 입력 해주세요");
+    //   e.preventDefault();
+    // }
+    // if (textArea.value === "") {
+    //   alert("내용을 입력 해주세요");
+    //   e.preventDefault();
+    // }
     textArea.classList.add("ln-h:1.75");
     textArea.innerHTML = quill.getSemanticHTML();
     console.log(textArea.innerText);
@@ -245,3 +181,62 @@ window.addEventListener("load", function () {
     inputImgHandler(e.target.files);
   };
 });
+
+window.addEventListener("load",function (e){
+
+  const previewPanel = document.querySelector(".preview-panel");
+  const regBtn  = document.querySelector(".reg-btn");
+  const formGroup = document.querySelector(".form-group");
+
+  let imgArr =[];
+
+  previewPanel.addEventListener("click",function (e){
+
+    console.log(e.target.nodeName);
+    if(!e.target.classList.contains("delete-pic"))
+      return;
+
+    // 이미지 엘리먼트 선택
+    let imgSection = e.target.previousElementSibling;
+
+    //이미지 엘리먼트 부모 선택
+    let imgSectionParent = imgSection.parentElement;
+
+    let imgSrc = imgSection.src;
+    let relativePath = imgSrc.substring(imgSrc.indexOf('shorts/') + 7); // 'shorts/' 다음부터 추출
+    // imgArr.push(relativePath);
+    // console.log(imgArr)
+
+    console.log(relativePath);
+
+    imgSectionParent.classList.add("d:none");
+
+    const newInput = document.createElement("input"); // input 엘리먼트 생성
+    newInput.type = "hidden"; // 숨겨진 input으로 설정
+    newInput.name = "imgPaths"; // 이름 설정
+    newInput.value = relativePath; // 값 설정
+
+    formGroup.appendChild(newInput);
+
+
+
+    //json 으로 변경
+    // const imgJson = JSON.stringify(imgArr);
+    //
+    // regBtn.addEventListener("click",function (){
+    //
+    //   fetch('/shorts/edit', {
+    //     method: 'POST', // 요청 메서드는 POST입니다.
+    //     headers: {
+    //       'Content-Type': 'application/json' // 요청의 Content-Type을 JSON으로 설정합니다.
+    //     },
+    //     body: imgJson // JSON 데이터를 요청 본문에 포함합니다.
+    //   })
+    //
+    // })
+
+
+  })
+
+
+})

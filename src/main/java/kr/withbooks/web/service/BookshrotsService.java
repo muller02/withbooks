@@ -22,5 +22,6 @@ public interface BookshrotsService {
     List<BookshortsView> getByUserId(Long userid, Integer page);
     Integer getCount(Long userid);
 
-    
+
+    void edit(Long sid, String content);
 }
