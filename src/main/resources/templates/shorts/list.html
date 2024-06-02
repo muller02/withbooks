@@ -270,7 +270,7 @@
             </li>
 
 
-            <li th:if="${#authentication.principal ne 'anonymousUser'}">
+            <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id ne s.userId}">
               <button>
                     <span class="va:middle deco deco-size:3 icon:share_fat w:100p">
                       신고하기
@@ -294,7 +294,7 @@
               <form id="form-name" class="px:2 py:1">
                 <button
                         id="modal-btn"
-                        class="delete-btn w:100p va:middle deco deco-size:4 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
+                        class="delete-btn text-align:center w:100p va:middle deco deco-size:3 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
                 >
                   삭제하기
                 </button>
