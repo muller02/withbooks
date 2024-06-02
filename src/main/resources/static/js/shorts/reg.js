@@ -105,7 +105,7 @@ window.onload = function () {
   });
 
   // 글자수 제한
-  const maxLength = 700;
+  const maxLength = 400;
   const restrict = document.querySelector(".restrict");
 
   quill.on("editor-change", (e) => {

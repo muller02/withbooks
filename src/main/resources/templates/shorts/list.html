@@ -127,9 +127,7 @@
       inset: 0;
       background-color: rgba(0, 0, 0, 0.06);
     }
-    .modal-transform-xy {
-      transform: translateX(170px) !important;
-    }
+
     /*  모달창*/
 
     *{
@@ -141,14 +139,7 @@
       height: 28px;
     }
 
-    /*.likeBtn{*/
-    /*  transition: transform 0.3s ease;*/
 
-    /*}*/
-    /*.likeBtn-transition{*/
-    /*  transform: scale(1.8);*/
-
-    /*}*/
 
 
     @keyframes scaleAnimation {
@@ -187,7 +178,7 @@
         id="main"
 >
 
-  <section id="login-modal" class="n-modal d:none  modal-transform-xy zi:5" tabindex="-1">
+  <section id="login-modal" class="n-modal d:none   zi:5" tabindex="-1">
     <h1 class="n-font:subtitle text-align:center fs:5 fw:2 mt:3 mb:4">로그인을 하시겠습니까?</h1>
     <p class="fs:2">로그인을하시면 조금 더 많은 서비스를 이용 할 수 있습니다. </p>
     <div class="mt:4 d:flex gap:4 jc:center">
@@ -307,7 +298,7 @@
         </div>
         <section
                 id="modal"
-                class="n-modal d:none modal-transform-xy"
+                class="n-modal d:none "
                 tabindex="-1"
         >
           <h1 class="n-font:subtitle text-align:center">
@@ -498,7 +489,7 @@
           <div class="fs:3 fw:3 color-text" th:text="${s.likeCnt}" >50.2M</div>
           <section
                   id="modal-like"
-                  class="n-modal d:none modal-transform-xy"
+                  class="n-modal d:none "
                   tabindex="-1"
           >
             <h1 class="n-font:subtitle text-align:center">
