@@ -223,7 +223,7 @@ public class BookshortsController {
 
 
 
-        return "redirect:/shorts/list";
+        return "redirect:/shorts/list?m=2";
     }
 
     @PostMapping("delete")
