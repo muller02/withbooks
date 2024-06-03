@@ -27,8 +27,10 @@ public class BookshortsServiceImp  implements  BookshrotsService{
 
     // shorts 저장
     @Override
-    public void add(Bookshorts shorts) {
+    public Long add(Bookshorts shorts) {
         repository.save(shorts);
+        System.out.println("아이디왔어용 = " + shorts.getId());
+        return shorts.getId();
     }
 
     // shortsview 가져오기

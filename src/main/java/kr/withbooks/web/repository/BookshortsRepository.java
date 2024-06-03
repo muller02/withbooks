@@ -10,7 +10,7 @@ import kr.withbooks.web.entity.BookshortsView;
 
 @Mapper
 public interface BookshortsRepository {
-    void save(Bookshorts shorts);
+    int save(Bookshorts shorts);
 
     Bookshorts findById(Long shortsId);
 

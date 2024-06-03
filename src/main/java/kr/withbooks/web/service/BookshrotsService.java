@@ -8,7 +8,7 @@ import kr.withbooks.web.entity.BookshortsView;
 
 public interface BookshrotsService {
 
-    void add(Bookshorts shorts);
+    Long add(Bookshorts shorts);
     List<BookshortsView> getView(Long booId,Long userId, int page);
     List<BookshortsView> getView();
     List<BookshortsAttachment> getAttach();

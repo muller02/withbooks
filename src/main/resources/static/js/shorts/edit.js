@@ -154,7 +154,7 @@ window.addEventListener("load", function () {
             "pos:absolute",
             "right:1",
             "top:1",
-
+            "cursor:pointer",
             "icon-color:main-2",
             "icon",
             "icon:x"

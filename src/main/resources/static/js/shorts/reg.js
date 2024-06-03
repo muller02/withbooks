@@ -105,7 +105,7 @@ window.onload = function () {
   });
 
   // 글자수 제한
-  const maxLength = 400;
+  const maxLength = 600;
   const restrict = document.querySelector(".restrict");
 
   quill.on("editor-change", (e) => {
@@ -129,6 +129,7 @@ window.onload = function () {
     const qlEditor = document.querySelector(".ql-editor > p "); // qlEditor 클래스 하위 p 선택
     let qlEditorChild = qlEditor.children; //  p의 자식 => <br>
 
+    console.log('dsaff= ' , qlEditor)
     let existContent = qlEditorChild.item(0) === null;
     let existQuerInput = queryInput.value !== "";
 
@@ -213,28 +214,26 @@ window.addEventListener("load", function () {
       //콜백 함수
       reader.onload = function (e) {
         let img = document.createElement("img");
-        let div = document.createElement("div");
+        let imgParentDiv = document.createElement("div");
         let deleteDiv = document.createElement("div");
 
         img.src = e.target.result;  // 콜백으로 받은 url을 이미지 엘리먼트 src 값으로 저장
 
         // ========== 엘리먼트 클래스 추가 및 엘리먼트 추가 ==========
         img.classList.add("h:3", "w:3", "bd-radius:3");
-        previewPanel.append(div);
+        previewPanel.append(imgParentDiv);
 
-        div.classList.add("pos:relative", "mr:2");
-        div.append(img);
+        imgParentDiv.classList.add("pos:relative", "mr:2", "cursor:pointer");
+        imgParentDiv.append(img);
 
         deleteDiv.classList.add(
           "pos:absolute",
           "right:1",
           "top:1",
-
           "icon-color:main-2",
           "icon",
           "icon:x"
         );
-        // ===================================================
 
 
         //  ========== 삭제 버튼 클릭시 이미지 삭제 ==========
@@ -257,16 +256,10 @@ window.addEventListener("load", function () {
 
           //input에 있는 파일 객체를 배열로 변경 한 후 , files에서 file을 하나 씩 꺼낸 후
           //lastModified 와 삭제 버튼의
-
-
           Array.from(files).filter(file =>  file.lastModified !==  removeTargetId)
               .forEach((file,index) =>{
-                // console.log(`${index} = ${file.lastModified}`);
-                // console.log(`remove target id = ${removeTargetId}`);
-                // console.log("result = ", file.lastModified !==  removeTargetId )
 
             deleteFilterDataTransfer.items.add(file);
-                // console.log('datafiltder= ' , deleteFilterDataTransfer.files);
 
               })
 
@@ -278,12 +271,10 @@ window.addEventListener("load", function () {
           deleteBtnParent.remove();
 
 
-
-
         });
 
 
-        div.append(deleteDiv);
+        imgParentDiv.append(deleteDiv);
       };
 
       // 주어진 파일을 읽어들이고, 해당 파일의 내용을 Data URL 형식으로 변환하여  콜백함수에 반환
@@ -291,35 +282,35 @@ window.addEventListener("load", function () {
     }
   }
 
-  imgLabel.ondragleave = function (e) {
-    console.log("드래그 리브");
-    imgLabel.classList.remove("valid");
-    imgLabel.classList.remove("invalid");
-  };
+  // imgLabel.ondragleave = function (e) {
+  //   console.log("드래그 리브");
+  //   imgLabel.classList.remove("valid");
+  //   imgLabel.classList.remove("invalid");
+  // };
 
-  // 드래그 오버 => 사용안함
-    imgLabel.ondragover = function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-      console.log("드래그 오버");
-
-      var valid =
-        e.dataTransfer &&
-        e.dataTransfer.types &&
-        e.dataTransfer.types.indexOf("Files") >= 0; //배열의 indexOf메소드다. 문자열의 메소드와 이름이 같아서 착각할 수 있으니 주의
-
-      if (valid) imgLabel.classList.add("valid");
-      else imgLabel.classList.add("invalid");
-    };
+  // // 드래그 오버 => 사용안함
+  //   imgLabel.ondragover = function (e) {
+  //     e.preventDefault();
+  //     e.stopPropagation();
+  //     console.log("드래그 오버");
+  //
+  //     var valid =
+  //       e.dataTransfer &&
+  //       e.dataTransfer.types &&
+  //       e.dataTransfer.types.indexOf("Files") >= 0; //배열의 indexOf메소드다. 문자열의 메소드와 이름이 같아서 착각할 수 있으니 주의
+  //
+  //     if (valid) imgLabel.classList.add("valid");
+  //     else imgLabel.classList.add("invalid");
+  //   };
 
   // 드래그 앤 드랍 시 처리
-  imgLabel.ondrop = function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log("드래그 드랍");
-
-    inputImgHandler(e.dataTransfer.files);
-  };
+  // imgLabel.ondrop = function (e) {
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   console.log("드래그 드랍");
+  //
+  //   inputImgHandler(e.dataTransfer.files);
+  // };
 
   // 이미지 직접 input 시 처리
   imgInput.oninput = function (e) {
