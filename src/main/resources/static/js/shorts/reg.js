@@ -11,6 +11,10 @@ window.addEventListener("load", function () {
   inputReset.onclick = function (e) {
     queryInput.value = "";
     resultList.innerHTML = "";
+
+  queryInput.disabled=false
+
+
   };
 
   resultList.onclick = function (e) {
@@ -61,8 +65,8 @@ window.addEventListener("load", function () {
         let sectionHTML = ` <section class="book item d:flex pl:3 py:3 csr:pointer">
                                 <h1 class="d:none">책정보</h1>
                                 <div class="book-id d:none">${book.id}</div>
-                                <div class="h:3 w:3 mr:5 text-align:center fl-shrink:0 box-shadow-custom">
-                                    <img src="${book.cover}" alt="책이미지" class="book-cover h:100p object-fit:cover">
+                                <div class="h: w:2 mr:5 text-align:center fl-shrink:0 box-shadow-custom">
+                                    <img src="${book.cover}" alt="책이미지" class="book-cover h:100p w:100p ">
                                 </div>
                                 <div class="d:flex flex-direction:column" title="${book.title}">
                                     <div class="book-title fs:4 fw:3 mb:2 ln-clamp:2">${book.title}</div>
