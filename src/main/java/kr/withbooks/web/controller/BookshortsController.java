@@ -190,6 +190,7 @@ public class BookshortsController {
                         @RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
 
 
+
         shortsAttachmentService.delete(sid, imgPaths,request);
 
 

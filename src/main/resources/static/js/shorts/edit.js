@@ -109,7 +109,9 @@ window.addEventListener("load", function () {
 
   // 입력받은 이미지들을 처리(저장 및 img-panel에 이미지 추가)해주는 함수
   function inputImgHandler(files) {
-    for (var file of files) {
+
+    //파일 타입과 , 크기 검증
+    for (let file of files) {
       if (file.type.indexOf("image/") != 0) {
         alert("이미지만 업로드 할 수 있습니다.");
         return;
@@ -121,27 +123,95 @@ window.addEventListener("load", function () {
       }
     }
 
-    for (var file of files) {
+    //파일을 dataTrasfer에 저장
+    for (let file of files) {
+
+      //전역에 있는 datatransfer에 fiels를 모두 담기
       datatransfer.items.add(file);
+
+
+      // 사용자가 등록 버튼을 눌렀을 경우 최신의 이미지파일들을 submit 해야 하기 때문이다
       imgInput.files = datatransfer.files;
 
-      console.log(imgInput.files);
 
-      var reader = new FileReader();
-
+      let reader = new FileReader();
+      //콜백 함수
       reader.onload = function (e) {
-        var img = document.createElement("img");
+        let img = document.createElement("img");
+        let div = document.createElement("div");
+        let deleteDiv = document.createElement("div");
 
-        img.src = e.target.result;
-        img.classList.add("h:3", "bd-radius:3", "mr:3", "w:3", "h:3");
-        previewPanel.append(img);
+        img.src = e.target.result;  // 콜백으로 받은 url을 이미지 엘리먼트 src 값으로 저장
 
-        //렌더리이이이잉~~~~
-        setTimeout(() => {
-          img.classList.add("slide-in");
-        }, 10);
+        // ========== 엘리먼트 클래스 추가 및 엘리먼트 추가 ==========
+        img.classList.add("h:3", "w:3", "bd-radius:3");
+        previewPanel.append(div);
+
+        div.classList.add("pos:relative", "mr:2");
+        div.append(img);
+
+        deleteDiv.classList.add(
+            "pos:absolute",
+            "right:1",
+            "top:1",
+
+            "icon-color:main-2",
+            "icon",
+            "icon:x"
+        );
+        // ===================================================
+
+
+        //  ========== 삭제 버튼 클릭시 이미지 삭제 ==========
+        //삭제 버튼에 data 속성을 지정하고, 값을 file의 lastModified를 지정한다.
+        deleteDiv.setAttribute('data-index', file.lastModified);
+
+
+        deleteDiv.addEventListener("click", function (e) {
+
+          //클릭 대상이 삭제 버튼이 아닐시 종료
+          if (!e.target.classList.contains("icon:x")) return;
+
+          //삭제 버튼의 data-index 값을 가지고 와 Number 형으로 변경
+          let removeTargetId = parseInt( e.target.dataset.index);
+
+          const files = imgInput.files;
+
+          //삭제 한 후의 files와 연결하기 위한 DataTransfer
+          const deleteFilterDataTransfer = new DataTransfer();
+
+          //input에 있는 파일 객체를 배열로 변경 한 후 , files에서 file을 하나 씩 꺼낸 후
+          //lastModified 와 삭제 버튼의
+
+
+          Array.from(files).filter(file =>  file.lastModified !==  removeTargetId)
+              .forEach((file,index) =>{
+                // console.log(`${index} = ${file.lastModified}`);
+                // console.log(`remove target id = ${removeTargetId}`);
+                // console.log("result = ", file.lastModified !==  removeTargetId )
+
+                deleteFilterDataTransfer.items.add(file);
+                // console.log('datafiltder= ' , deleteFilterDataTransfer.files);
+
+              })
+
+          imgInput.files = deleteFilterDataTransfer.files;
+
+
+          const deleteBtn = e.target;
+          const deleteBtnParent = deleteBtn.parentNode;
+          deleteBtnParent.remove();
+
+
+
+
+        });
+
+
+        div.append(deleteDiv);
       };
 
+      // 주어진 파일을 읽어들이고, 해당 파일의 내용을 Data URL 형식으로 변환하여  콜백함수에 반환
       reader.readAsDataURL(file);
     }
   }
@@ -206,7 +276,8 @@ window.addEventListener("load",function (e){
     let relativePath = imgSrc.substring(imgSrc.indexOf('shorts/') + 7); // 'shorts/' 다음부터 추출
     // imgArr.push(relativePath);
     // console.log(imgArr)
-
+// URL 디코딩
+    relativePath = decodeURIComponent(relativePath);
     console.log(relativePath);
 
     imgSectionParent.classList.add("d:none");

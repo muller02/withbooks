@@ -229,8 +229,8 @@ window.addEventListener("load", function () {
           "pos:absolute",
           "right:1",
           "top:1",
-          "w:1",
-          "h:1",
+
+          "icon-color:main-2",
           "icon",
           "icon:x"
         );

@@ -38,6 +38,7 @@ public class BookshortsAttachmentServiceImp implements BookshortsAttachmentServi
         if(imgPaths !=null) {
             // 해당 파일이미지 삭제
             for (String imgPath : imgPaths) {
+                System.out.println("이미지 펫 = "  + imgPaths);
 
                 repository.remove(sid, imgPath);
 
