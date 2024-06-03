@@ -4,19 +4,55 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="https://cdn.jsdelivr.net/npm/newtil-css@0.1.49/dist/style.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/var.css" />
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="/css/util/background-color.css"
+    />
+    <link rel="stylesheet" type="text/css" href="/css/util/border-color.css" />
+    <link rel="stylesheet" type="text/css" href="/css/util/border-radius.css" />
+    <link rel="stylesheet" type="text/css" href="/css/util/progress.css" />
+    <link rel="stylesheet" type="text/css" href="/css/util/color.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+            href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&family=Nanum+Pen+Script&family=Noto+Sans+KR:wght@100..900&display=swap"
+            rel="stylesheet"
+    />
+<style>
+    .fs-20{
+        font-size: 60px;
+    }
+
+
+    *{
+        font-family: "Noto Sans KR";
+    }
+
+</style>
 </head>
-<script>
-    window.addEventListener("load", function(){
-        setTimeout(()=>{
-            window.history.go(-1);
-        }, 2000);
-    })
-</script>
-<body>
-    <section>
-        <h1>404</h1>
-        <div>Page Not Found</div>
-        <div>이전으로 돌아갑니다.</div>
+
+<body class="bg-color:main-1">
+    <section class="h:100p d:flex ai:center jc:center flex-direction:column">
+        <h1 class="d:none">에러페이지</h1>
+
+            <p class="text-align:center line-height:1.75 mb:6 "><span class="fw:3 fs-20 color:main-6 d:inline-block mb:4">404 ERROR</span></br>
+                죄송합니다. 페이지를 찾을 수 없습니다.</br>
+                존재하지 않는 주소를 입력하셨거나,</br>
+                요청하신 페이지의 주소가 변경, 삭제되어 찾을수 없습니다.
+            </p>
+
+
+
+        <a class="n-btn bg-color:main-5 w:3 fs:3 mt:4" href="javascript:history.back()">뒤로가기</a>
+
     </section>
 </body>
 </html>
