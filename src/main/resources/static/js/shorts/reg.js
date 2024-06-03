@@ -236,7 +236,8 @@ window.addEventListener("load", function () {
           "top:1",
           "icon-color:main-2",
           "icon",
-          "icon:x"
+          "icon:x",
+
         );
 
 
