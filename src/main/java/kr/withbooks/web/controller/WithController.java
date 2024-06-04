@@ -89,6 +89,8 @@ public class WithController {
     model.addAttribute("list", list);
     model.addAttribute("count", count);
 
+    System.out.println("카운트 : " + count);
+
     return "with/list";
   }
 
