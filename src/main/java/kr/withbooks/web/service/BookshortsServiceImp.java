@@ -27,8 +27,10 @@ public class BookshortsServiceImp  implements  BookshrotsService{
 
     // shorts 저장
     @Override
-    public void add(Bookshorts shorts) {
+    public Long add(Bookshorts shorts) {
         repository.save(shorts);
+        System.out.println("아이디왔어용 = " + shorts.getId());
+        return shorts.getId();
     }
 
     // shortsview 가져오기
@@ -93,6 +95,11 @@ public class BookshortsServiceImp  implements  BookshrotsService{
     public Integer getCount(Long userid) {
         return shortsViewRepository.count(userid);
     }
-    
+
+    @Override
+    public void edit(Long sid, String content) {
+        repository.update(sid,content);
+    }
+
 
 }

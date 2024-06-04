@@ -12,4 +12,6 @@ public interface BookshortsAttachmentRepository {
     List<BookshortsAttachment> findAll();
 
     List<BookshortsAttachment> findAllById(Long id);
+
+    void remove(Long sid, String imgPath);
 }

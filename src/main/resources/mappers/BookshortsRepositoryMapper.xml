@@ -23,5 +23,8 @@
 		update shorts set blind_yn = 1 where id =#{shortsId}
 	</update>
 
+	<update id="update">
+		update shorts set content = #{content} where id =#{sid}
+	</update>
 
 </mapper>

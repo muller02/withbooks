@@ -127,9 +127,7 @@
       inset: 0;
       background-color: rgba(0, 0, 0, 0.06);
     }
-    .modal-transform-xy {
-      transform: translateX(170px) !important;
-    }
+
     /*  모달창*/
 
     *{
@@ -141,14 +139,7 @@
       height: 28px;
     }
 
-    /*.likeBtn{*/
-    /*  transition: transform 0.3s ease;*/
 
-    /*}*/
-    /*.likeBtn-transition{*/
-    /*  transform: scale(1.8);*/
-
-    /*}*/
 
 
     @keyframes scaleAnimation {
@@ -170,9 +161,17 @@
       animation: scaleAnimation 0.6s ease; /* 1초 동안 애니메이션을 적용하고, 입출력 속도는 ease-in-out */
     }
 
+    .content-al p{
+
+      white-space: normal !important;
+      overflow-wrap: break-word !important;
+      word-break: break-word !important;
+      word-wrap: break-word !important;
+    }
+
   </style>
   <script src="/js/shorts/list.js" defer></script>
-  <script src="/js/shorts/list-scroll.js" defer></script>
+<!--  <script src="/js/shorts/list-scroll.js" defer></script>-->
 </head>
 
 <body>
@@ -187,7 +186,7 @@
         id="main"
 >
 
-  <section id="login-modal" class="n-modal d:none  modal-transform-xy zi:5" tabindex="-1">
+  <section id="login-modal" class="n-modal d:none   zi:5" tabindex="-1">
     <h1 class="n-font:subtitle text-align:center fs:5 fw:2 mt:3 mb:4">로그인을 하시겠습니까?</h1>
     <p class="fs:2">로그인을하시면 조금 더 많은 서비스를 이용 할 수 있습니다. </p>
     <div class="mt:4 d:flex gap:4 jc:center">
@@ -200,7 +199,7 @@
 
   <div id="bookshorts-list">
         <span class="pos:relative">
-          <div class="pos:absolute left:1 top:1 fs:5" th:if="${checkShorts}">🔥</div>
+          <div class="pos:absolute left:1 top:1 fs:5" th:if="${checkShorts}"></div>
         </span>
 
     <section
@@ -252,6 +251,7 @@
         </div>
       </section>
 
+      <!--  북쇼츠 게시글 ... 버튼 클릭시 팝업     -->
       <section class="d:flex jc:end my:3 ">
         <h1 class="d:none">북쇼츠 팝업버튼</h1>
         <div class="n-dropdown">
@@ -270,7 +270,7 @@
             </li>
 
 
-            <li th:if="${#authentication.principal ne 'anonymousUser'}">
+            <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id ne s.userId}">
               <button>
                     <span class="va:middle deco deco-size:3 icon:share_fat w:100p">
                       신고하기
@@ -294,7 +294,7 @@
               <form id="form-name" class="px:2 py:1">
                 <button
                         id="modal-btn"
-                        class="delete-btn w:100p va:middle deco deco-size:4 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
+                        class="delete-btn text-align:center w:100p va:middle deco deco-size:3 ai:center deco-color:accent-2 icon:trash color:accent-2 fs:2 fw:2"
                 >
                   삭제하기
                 </button>
@@ -307,7 +307,7 @@
         </div>
         <section
                 id="modal"
-                class="n-modal d:none modal-transform-xy"
+                class="n-modal d:none "
                 tabindex="-1"
         >
           <h1 class="n-font:subtitle text-align:center">
@@ -328,7 +328,8 @@
         </section>
       </section>
 
-      <!--             모달창 -->
+
+
       <span class="lg:d:flex lg:ai:start gap:2 lg:d:block">
             <section
                     class="fl-dir:column align-self:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2"
@@ -380,104 +381,21 @@
             </section>
 
             <span class="d:block w:100p">
-              <!--                        글이 길어지면 박스가 같이 늘어나지 않아, 만약 필요하다면 float 적용한 이미지 section-->
-              <!--                              <section-->
-              <!--                                      class="fl-dir:column ai:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2 rg-float-left" th:if="${s.img}"-->
-              <!--                              >-->
-              <!--                        <h1 class="d:none">북쇼츠 본문 이미지</h1>-->
 
-              <!--                        <div class="d:flex fl-dir:column h:7 w:7  mx:auto ">-->
-              <!--                            <div class="slide w:7 h:7 of:hidden	pos:relative">-->
-              <!--                                <div class="  img-list transition-transform images d:inline-flex position:relative">-->
-              <!--                                    <img  th:each="i : ${s.img}"-->
-              <!--                                          src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"-->
-              <!--                                          alt="본문 이미지"-->
-              <!--                                          class="w:7 h:7  bd-radius:1 pb:1 	"-->
 
-              <!--                                          th:src="'/image/shorts/' + ${i}" />-->
-              <!--                                </div>-->
-
-              <!--                            <button class="back position:absolute cursor:pointer  ml:2	 p:1  border-radius:full   icon-color:sub-1 bg-color:base-2  top:4p  left:0" th:if="${s.img.size > 1}" >-->
-              <!--                                <span class="icon icon:arrow_left"></span></button>-->
-
-              <!--                            <button class="next position:absolute cursor:pointer  mr:2	 p:1  border-radius:full   icon-color:sub-1 bg-color:base-2  top:4p  right:0" th:if="${s.img.size > 1}" >-->
-              <!--                                <span class="icon icon:arrow_right"></span></button>-->
-              <!--                            </div>-->
-              <!--                            <section class="pager as:stretch mt:1">-->
-              <!--                                <h1 class="d:none">이미지 페이저</h1>-->
-              <!--                                <ul class="d:flex of:hidden img-paging gap:1" th:if="${s.img.size > 1}">-->
-
-              <!--                                <li th:each="img : ${s.img}"-->
-              <!--                                    class="bd-radius:2 transition-background fl-grow:1   h:1" th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'">-->
-              <!--                                </li>-->
-
-              <!--                                </ul>-->
-              <!--                            </section>-->
-              <!--                        </div>-->
-              <!--                    </section>-->
-
-              <article class="h:max-content pl:2 pr:3">
+              <article class="h:max-content pl:2 pr:3 content-al">
                 <h1 class="d:none">북쇼츠 본문</h1>
-                <p class="ml:2 mr:2 ln-h:2 fs:2" th:utext="${s.content}">
-                  모든 국민은 그 보호하는 자녀에게 적어도 초등교육과 법률이 정하는
-                  교육을 받게 할 의무를 진다. 군인·군무원·경찰공무원 기타 법률이
-                  정하는 자가 전투·훈련등 직무집행과 관련하여 받은 손해에 대하여는
-                  법률이 정하는 보상외에 국가 또는 공공단체에 공무원의 직무상
-                  불법행위로 인한 배상은 청구할 수 없다.<br /><br />
+                <p class="ml:2 mr:2 ln-h:2 fs:2 " th:utext="${s.content}">
 
-                  모든 국민은 헌법과 법률이 정한 법관에 의하여 법률에 의한 재판을
-                  받을 권리를 가진다. 대통령의 선거에 관한 사항은 법률로 정한다.
-                  헌법개정은 국회재적의원 과반수 또는 대통령의 발의로 제안된다.<br /><br />
-
-                  대한민국은 국제평화의 유지에 노력하고 침략적 전쟁을 부인한다.
-                  모든 국민은 거주·이전의 자유를 가진다. 국무총리는 국무위원의
-                  해임을 대통령에게 건의할 수 있다.<br /><br />
-
-                  대통령은 전시·사변 또는 이에 준하는 국가비상사태에 있어서
-                  병력으로써 군사상의 필요에 응하거나 공공의 안녕질서를 유지할
-                  필요가 있을 때에는 법률이 정하는 바에 의하여 계엄을 선포할 수
-                  있다.<br /><br />
                 </p>
               </article>
             </span>
 
-        <!--                    <section-->
-        <!--                            class="fl-dir:column ai:center my:5 lg:my:0 lg:order:1 lg:mr:6 img-section gap:2" th:if="${s.img}"-->
-        <!--                     >-->
-        <!--                        <h1 class="d:none">북쇼츠 본문 이미지</h1>-->
 
-        <!--                        <div class="d:flex fl-dir:column h:7 w:7  mx:auto ">-->
-        <!--                            <div class="slide w:7 h:7 of:hidden	pos:relative">-->
-        <!--                                <div class="  img-list transition-transform images d:inline-flex position:relative">-->
-        <!--                                    <img  th:each="i : ${s.img}"-->
-        <!--                                            src="/image/shorts/마흔에%20읽는%20쇼펜하우어.PNG"-->
-        <!--                                            alt="본문 이미지"-->
-        <!--                                            class="w:7 h:7  bd-radius:1 pb:1 	"-->
-
-        <!--                                            th:src="'/image/shorts/' + ${i}" />-->
-        <!--                                </div>-->
-
-        <!--                            <button class="back position:absolute cursor:pointer ml:2   icon-color:sub-1	icon icon:arrow_left border-radius:full    bg-color:base-3  top:5p  left:0" th:if="${s.img.size > 1}" >-->
-        <!--                                <span class=" "></span>-->
-        <!--                            </button>-->
-        <!--                                <button class="next  position:absolute cursor:pointer mr:2	icon icon:arrow_right   border-radius:full   icon-color:sub-1 bg-color:base-3  top:5p right:0" th:if="${s.img.size > 1}">-->
-        <!--                                       <span class=" icon-color:sub-1  	icon icon:arrow_right"></span>-->
-        <!--                                </button>-->
-        <!--                            </div>-->
-        <!--                            <section class="pager as:stretch mt:1">-->
-        <!--                                <h1 class="d:none">이미지 페이저</h1>-->
-        <!--                                <ul class="d:flex of:hidden img-paging gap:1" th:if="${s.img.size > 1}">-->
-
-        <!--                                <li th:each="img : ${s.img}"-->
-        <!--                                    class="bd-radius:2 transition-background fl-grow:1   h:1" th:classappend="${imgStat.index} > 0 ? 'ml:2 bg-color:main-3' : 'bg-color:main-5'">-->
-        <!--                                </li>-->
-
-        <!--                                </ul>-->
-        <!--                            </section>-->
-        <!--                        </div>-->
-        <!--                    </section>-->
           </span>
 
+
+      <!--  북쇼츠 댓글 / 좋아요 버튼 및 로그인 안 할시 모달 창    -->
       <section class="d:flex ai:center jc:end mr:2 mt:4 cmt-like-section">
         <h1 class="d:none">댓글/좋아요 버튼</h1>
         <div class="d:flex fl-dir:column ai:center">
@@ -498,7 +416,7 @@
           <div class="fs:3 fw:3 color-text" th:text="${s.likeCnt}" >50.2M</div>
           <section
                   id="modal-like"
-                  class="n-modal d:none modal-transform-xy"
+                  class="n-modal d:none "
                   tabindex="-1"
           >
             <h1 class="n-font:subtitle text-align:center">
@@ -558,7 +476,7 @@
                         placeholder="댓글을 입력하세요 ! "
                 ></textarea>
 
-            <!--              list2 에서는 disabled 필요 -->
+
             <button sec:authorize="isAuthenticated()" type="button" class="n-btn n-btn-color:main comment-reg" >
               등록
             </button>
@@ -576,29 +494,32 @@
   <section>
     <h1 class="d:none">플로팅버튼</h1>
 
-
     <div class="floting-btn">
       <a
         sec:authorize="isAnonymous()"
         href="javascript:loginModal()"
-        style="transform: translate(-60px , 10px)"
-        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:8 icon-size:5 border-radius:full h:1 w:1 zi:5"
+        style="transform: translate(-30px , 10px)"
+        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:10 right:7 icon-size:5 border-radius:full h:1 w:1 zi:5"
       >
       </a>
       <a
         sec:authorize="isAuthenticated()"
         href="/shorts/reg"
-        style="transform: translate(-60px , 10px)"
-        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:8 icon-size:5 border-radius:full h:1 w:1 zi:5"
+        style="transform: translate(-30px , 10px)"
+        class="icon icon:plus plus write-btn icon-color:sub-1 bg-color:main-5 pos:fixed bottom:10 right:7 icon-size:5 border-radius:full h:1 w:1 zi:5"
       >
     </a>
       <a
         href="#main"
-        style="transform: translate(-36px, 9px)"
-        class="icon icon:arrow_up arrow icon-color:sub-1 bg-color:main-5 pos:fixed bottom:9 right:1 icon-size:5 border-radius:full h:1 w:1 zi:5"
+
+        style="transform: translate(-10px , 10px)"
+        class="icon icon:arrow_up arrow icon-color:sub-1 bg-color:main-5 pos:fixed bottom:10 right:0 icon-size:5 border-radius:full h:1 w:1 zi:5"
       ></a>
     </div>
   </section>
+
+
+
   <footer class=" mx:auto pb:8 pt:4 fs:2 ">
     <section class=" border-top border-color:base-2 pt:2 d:flex flex-direction:column	jc:center ai:center">
       <ul class="mb:2 color:base-5 d:flex">

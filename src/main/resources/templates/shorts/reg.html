@@ -79,6 +79,29 @@
             opacity: 1;
         }
 
+
+        #editor {
+            width: 100%;
+
+
+            height: 90%;
+            border: 1px solid #ccc;
+            border-radius: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+
+            font-size: 15px;
+            text-align: center;
+
+        }
+        #toolbar-container{
+
+            border-radius: 10px;
+
+        }
+
+
+
     </style>
 </head>
 
@@ -96,7 +119,7 @@
             <label class="d:flex al-items:center n-textbox px:2">
                 <input type="text" class="query-input pos:relative flex-grow:1" name="title" placeholder="책 제목을 검색하세요!" />
                 <div class="d:none book-id">책 아이디</div>
-                <div class="bd bd-radius:full border-color:main-4 mr:2 fs:1">
+                <div class="bd bd-radius:full border-color:main-4 mr:2 fs:1 cur:pointer">
                     <span class="input-reset icon icon:x icon-size:2 icon-color:main-4">삭제</span>
                 </div>
                 <button class="btn icon icon:magnifying_glass icon-color:main-4">돋보기</button>
@@ -120,8 +143,8 @@
 
             <section class="form-group mt:3 ">
                 <h1 class="d:none">이미지 입력</h1>
-                <div class="   d:flex  ai:center bd-radius:5 mr:3  img-group">
-                    <label class="img-label d:flex jc:center flex-shrink:0   bg-color:base-2 ai:center w:3 h:3 border-radius:8 d:inline-block  mr:2">
+                <div class="   d:flex  ai:center bd-radius:5 mr:3  img-group pl:2">
+                    <label class="img-label d:flex jc:center flex-shrink:0   bg-color:base-2 ai:center w:3 h:3 border-radius:8 d:inline-block  mr:2 ">
                         <span class="icon icon:image  icon-color:base-9 icon-size:5">이미지</span>
                         <input class="d:none img-input" name="files" type="file" multiple>
                     </label>
@@ -132,7 +155,7 @@
 
             </section>
             <div class="restrict fade mb:1 color:accent-1"> 700 글자를 초과하였습니다.</div>
-            <section class="h:10 mt:2">
+            <section class="h:8 mt:2">
                 <h1 class="d:none">폼</h1>
                 <div class="h:100p">
                     <div id="toolbar-container">
@@ -157,7 +180,7 @@
                 <div><input type="hidden" class="id-input" name="book-id"></div>
                 <div></div>
             </section>
-            <button class="reg-btn n-btn bg-color:main-4  pos:absolute top:0 right:0 " type="submit">등록</button>
+            <button class="reg-btn n-btn bg-color:main-4  pos:absolute top:0 right:0 " type="submit" style="transform: translate( -10px, 10px)">등록</button>
         </form>
     </section>
 </main>

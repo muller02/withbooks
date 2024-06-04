@@ -13,10 +13,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -52,14 +49,13 @@ public class BookshortsController {
                         @AuthenticationPrincipal CustomUserDetails userDetails) {
 
         Long userId = null;
+
         if(userDetails != null)
             userId = userDetails.getId();
 
         int page = 1;
-
-
-
         List<BookshortsView> list = service.getView(bookId,userId, page);
+
 
         for (BookshortsView view : list) {
             Long id = view.getId();
@@ -87,7 +83,6 @@ public class BookshortsController {
 
         model.addAttribute("list", list);
 
-        System.out.println("list : " + list);
 
         return "shorts/list";
     }
@@ -120,33 +115,13 @@ public class BookshortsController {
                             .content(content)
                             .build();
 
-        service.add(item);   // 북쇼츠 내용 저장
+          Long shortsId =   service.add(item);   // 북쇼츠 내용 저장
 
-        String fileName = null;
 
-        for(int i=0; i<files.size(); i++){
+        shortsAttachmentService.add(files,request ,shortsId);  // 북쇼츠 첨부파일 저장
 
-            if (!files.get(i).isEmpty()) {
+//
 
-                fileName = files.get(i).getOriginalFilename();
-
-                String path = "/image/shorts";
-                String realPath = request.getServletContext().getRealPath(path);
-                File file = new File(realPath);
-                if(!file.exists())
-                    file.mkdirs();              
-
-                File filePath = new File(realPath+File.separator+fileName);
-                
-                files.get(i).transferTo(filePath);
-                
-            
-               BookshortsAttachment shortsAttachment =BookshortsAttachment.builder().shortsId(item.getId()).img(fileName).build();
-                //for문을 돌면서 다중 파일 이미지 이름을 db(shorts_attachment)에 저장
-                shortsAttachmentService.add(shortsAttachment);
-            }
-        }
-   
         return "redirect:/shorts/list";
 
     }
@@ -159,24 +134,12 @@ public class BookshortsController {
 
         // shortsId 로 수정할 shorts 찾아오기 
         Bookshorts shorts = service.get(shortsId);
-        log.info("shorts = {}", shorts);
+
         // shortsId 로 수정할 shortsAttachments 찾아오기
         List<BookshortsAttachment> shortsAttachments = shortsAttachmentService.getListById(shortsId);
-        log.info("shortsAttachments = {}", shortsAttachments);
 
         Book book = bookService.getById(bookId);
-        log.info("book = {}", book);
-        // model : view로 전달 하는 저장, 
-        // 조합하기 - view는 결합이다. 어쩔수 없이 view를 사용한다.
-        /*1. 수정하기를 누를 떄 , 쇼츠 섹션에 있는 bookid 와, shots id가 넘어간다.
-         * 2. book service를 통해 booId를 념겨서, title을 얻는다.
-         * 3. 모델에 booktitle을 담는다.
-         * 4. shorts id를 통해 , shorts 테이블에서 해당 shorts 를 얻어온다.
-         * 5. shorts를 모델에 담는다.
-         * 6.
-         */
 
-        // title,  short id 
         
         // model에 담기
         model.addAttribute("shorts", shorts);
@@ -188,10 +151,24 @@ public class BookshortsController {
     }
 
     @PostMapping("edit")
-    public String edit() {
-        
+    public String edit( @RequestParam(required = false) List<String> imgPaths , HttpServletRequest request , @RequestParam(required = false, name = "sid") Long shortsId,
+                        @RequestParam(name = "text-area", required = false) String content ,
+                        @RequestParam(name = "files", required = false) List<MultipartFile> files) throws IOException {
 
-        return "redirect:/shorts/list";
+
+
+        
+        shortsAttachmentService.delete(shortsId, imgPaths,request);  // 삭제 클릭 한 첨부파일 DB, 로컬 둘다 삭제
+
+
+
+        service.edit(shortsId, content);  // 북쇼츠 내용 수정
+
+        shortsAttachmentService.add(files,request ,shortsId); // 새로 추가된 첨부파일 DB, 로컬 저장
+
+
+
+        return "redirect:/shorts/list?m=2";
     }
 
     @PostMapping("delete")
