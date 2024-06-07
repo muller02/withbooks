@@ -1,5 +1,5 @@
 .comment-group {
-  height: 543px !important;
+   max-height: 543px !important;
 }
 
 /* .comments {

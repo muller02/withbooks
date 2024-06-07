@@ -145,3 +145,9 @@ article p {
     word-break: break-word !important;
     word-wrap: break-word !important;
 }
+
+
+
+/*댓글 삭제 버튼 */
+.delete-comment{
+}

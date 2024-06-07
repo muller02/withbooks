@@ -204,7 +204,8 @@
               ${shorts.regDate}
               </div>
             </span>
-            <div class="ml:auto ln-clamp:1 w:3 lg:w:auto md:w:auto text-align:right">
+            <div class="ml:auto ln-clamp:1 w:3 lg:w:auto md:w:auto text-align:right
+            ">
               <a
                 href="/book/detail?id=${shorts.bookId}"
                 class="font-size:1 color:base-4"

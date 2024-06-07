@@ -203,13 +203,13 @@
                   </div>
 
                   <button
-                          class="back position:absolute cursor:pointer ml:2 icon-color:sub-1 icon icon:arrow_left border-radius:full bg-color:base-3 top:5p left:0"
+                          class="back position:absolute cursor:pointer ml:2 icon-color:sub-1 icon icon:arrow_left border-radius:full bg-color:base-2 top:5p left:0"
                           th:if="${s.img.size > 1}"
                   >
                     <span class=" "></span>
                   </button>
                   <button
-                          class="next position:absolute cursor:pointer mr:2 icon icon:arrow_right border-radius:full icon-color:sub-1 bg-color:base-3 top:5p right:0"
+                          class="next position:absolute cursor:pointer mr:2 icon icon:arrow_right border-radius:full icon-size:3  icon-color:sub-1 bg-color:base-2 top:5p right:0"
                           th:if="${s.img.size > 1}"
                   >
                     <span class="icon-color:sub-1 icon icon:arrow_right"></span>
@@ -305,8 +305,9 @@
                 <textarea
                         sec:authorize="isAuthenticated()"
                         type="text"
+                        maxlength="100"
                         required
-                        class="comment-content px:1 py:1 n-textbox mr:2 of:hidden "
+                        class="comment-content px:2 py:1 n-textbox mr:2 of:hidden "
                         name="comment-content"
                         placeholder="댓글을 입력하세요 ! "
                 ></textarea>
@@ -314,7 +315,7 @@
                         sec:authorize="isAnonymous"
                         type="text"
                         onfocus="loginModal()"
-                        class="comment-content px:1 py:1 n-textbox mr:2 of:hidden "
+                        class="comment-content px:2 py:1 n-textbox mr:2 of:hidden "
                         name="comment-content"
                         placeholder="댓글을 입력하세요 ! "
                 ></textarea>
