@@ -7,6 +7,7 @@
     const id = urlParams.get('id');
 
 
+    // 익명 사용자나 현재 로그인 한 사용자가 해당 숏츠를 쓰지 않았을 것을 확인
     async function isce(shortsId) {
         try {
             const response = await fetch(`/api/bookShorts/isanonymous?sid=${shortsId}`);
@@ -203,7 +204,7 @@
               ${shorts.regDate}
               </div>
             </span>
-            <div class="ml:auto">
+            <div class="ml:auto ln-clamp:1 w:3 lg:w:auto md:w:auto text-align:right">
               <a
                 href="/book/detail?id=${shorts.bookId}"
                 class="font-size:1 color:base-4"
