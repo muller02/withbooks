@@ -50,6 +50,9 @@ public class BookShortsLikeController {
         System.out.println("Asdfsfd");
 
 
+        if(userDetails == null)
+            return  null;
+
         System.out.println("포스트 요청 ");
         Long userId = null;
         if(userDetails != null)
@@ -75,7 +78,10 @@ public class BookShortsLikeController {
     public int delete(@RequestParam(name = "si") Long shortsId, @AuthenticationPrincipal CustomUserDetails userDetails){
 
         System.out.println("딜리트 요청 ");
+
         Long userId = null;
+
+
         if(userDetails != null)
             userId = userDetails.getId();;
 
