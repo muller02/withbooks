@@ -17,4 +17,5 @@ public interface BookshortsRepository {
     void blindById(Long shortsId);
 
     void update(Long sid, String content);
+    Integer findByUserIdShortsId(Long userId, Long shortsId);
 }

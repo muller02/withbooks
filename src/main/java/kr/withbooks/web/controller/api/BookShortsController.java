@@ -20,26 +20,75 @@ public class BookShortsController {
 
     @Autowired
     private BookshrotsService service;
-    
+
     @Autowired
     private BookshortsAttachmentService shortsAttachmentService;
 
+
     @GetMapping("list")
     public List<BookshortsView> getList(
-                                    @AuthenticationPrincipal  CustomUserDetails userDetails,
-                                    @RequestParam(name = "id", required = false) Long bookId,
-                                    @RequestParam(name="ls") Long lastShortsId
-                                    ){
+            @AuthenticationPrincipal CustomUserDetails userDetails,
+            @RequestParam(name = "id", required = false) Long bookId,
+            @RequestParam(name = "ls") Long lastShortsId
+    ) {
         Long userId = 1L;
-        if(userDetails != null)
+        if (userDetails != null)
             userId = userDetails.getId();
 
         List<BookshortsView> list = service.getView(bookId, userId, lastShortsId);
-        
+
         System.out.println("=================================================================");
         System.out.println(list);
 
         return list;
     }
 
+    @GetMapping("/isUser")
+    public Integer isUser(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestParam(name = "sid") Long shortsId) {
+
+        Long userId = null;
+
+        // 로그인을 했으면 userId 입력
+        if (userDetails != null)
+            userId = userDetails.getId();
+
+
+        // 해당 쇼츠가 해당 유저가 쓴 것인지 확인 하는 로직
+        Integer checkShorts = service.getShortsByUserId(userId, shortsId);
+        
+        if (userDetails == null || checkShorts == 0) {
+
+            return 0;
+        }
+
+        return 1;
+
+
+    }
+
+    @GetMapping("/isanonymous")
+    public Integer isanonymous(@AuthenticationPrincipal CustomUserDetails userDetails, @RequestParam(name = "sid") Long shortsId) {
+
+        Long userId = null;
+
+        System.out.println("userdetials = " + userDetails);
+        // 로그인을 했으면 userId 입력
+        if (userDetails != null)
+            userId = userDetails.getId();
+
+
+        // 해당 쇼츠가 해당 유저가 쓴 것인지 확인 하는 로직
+        Integer checkShorts = service.getShortsByUserId(userId, shortsId);
+        System.out.println(checkShorts);
+
+        System.out.println(userDetails == null && checkShorts == 0);
+        if (userDetails == null || checkShorts == 0) {
+
+            return 1;
+        }
+
+        return 0;
+
+
+    }
 }

@@ -20,166 +20,16 @@
   <link rel="stylesheet" type="text/css" href="/css/var.css" />
   <link rel="stylesheet" type="text/css" href="/css/withtil.css" />
   <link rel="stylesheet" type="text/css" href="/css/util/border-radius.css" />
-  <style>
-    #main {
-      --gap-10: 62px;
-    }
+  <link rel="stylesheet" type="text/css" href="/css/shorts/shorts.css">
 
-    .shorts > div {
-      --height-1: 40px;
-      --width-1: 32px;
-    }
-
-    /*좋아요 댓글 이모티콘 크기 */
-    .cmt-like-section > * {
-      --icon-size-5: 28px;
-
-    }
-    .pager {
-      --height-1: 4px;
-    }
-
-    /* 이미지 슬라이드 효과*/
-    .transition-transform {
-      transition: transform 0.8s;
-    }
-
-    /* 이미지 페이징 효과  */
-
-    .transition-background {
-      transition: background-color 0.6s;
-    }
-
-    /*북쇼츠 , 댓글 그림자*/
-    .box-shadow-custom {
-      box-shadow: 2px 4px 14px 0 rgba(157, 157, 157, 14%);
-    }
-    .translate-x-18px {
-      @media (min-width: 1200px) {
-        transform: translateX(330px);
-      }
-    }
-
-    /*본문 내용 line-heihgt*/
-    article p {
-      line-height: 1.7;
-    }
-
-    /*    댓글버튼-숫자 , 좋아요버튼-숫자  이모티콘 색상 */
-    .color-text {
-      color: #343330;
-    }
-
-    .color-icon:before {
-      background-color: #343330;
-    }
-
-    /*댓글 컬러*/
-    .comment-content-color {
-      color: #222222;
-    }
-    .comment-title-color {
-      color: #242424;
-    }
-
-    .rg-comment-hover:hover {
-      background-color: var(--color-base-2);
-
-      border-radius: 100px;
-    }
-
-    /*  모달창*/
-    /* CSS */
-    .n-modal {
-      transition:
-              transform 0.13s,
-              opacity 0.13s;
-    }
-
-    .comment-modal-transform{
-      transform: translateX(-130px);
-    }
-
-    @keyframes modal-fade-in {
-      from {
-        opacity: 0;
-        transform: translate(50%, -48%) scale(0.97);
-      }
-      to {
-        opacity: 1;
-        transform: translate(50%, -50%) scale(1);
-      }
-    }
-
-    @keyframes modal-fade-out {
-      from {
-        opacity: 1;
-        transform: translate(50%, -50%) scale(1);
-      }
-      to {
-        opacity: 0;
-        transform: translate(100%, -48%) scale(0.97);
-      }
-    }
-
-    .backdrop {
-      position: fixed;
-      inset: 0;
-      background-color: rgba(0, 0, 0, 0.06);
-    }
-
-    /*  모달창*/
-
-    *{
-      font-family: "Noto Sans KR", sans-serif;
-    }
-
-    .comment-user-img{
-      width: 28px;
-      height: 28px;
-    }
-
-
-
-
-    @keyframes scaleAnimation {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.8);
-      }
-
-      100%{
-        transform: scale(1);
-
-      }
-    }
-
-
-    .like {
-      animation: scaleAnimation 0.6s ease; /* 1초 동안 애니메이션을 적용하고, 입출력 속도는 ease-in-out */
-    }
-
-    .content-al p{
-
-      white-space: normal !important;
-      overflow-wrap: break-word !important;
-      word-break: break-word !important;
-      word-wrap: break-word !important;
-    }
-
-  </style>
+  <link rel="stylesheet" type="text/css" href="/css/components/comment/comment.css">
   <script src="/js/shorts/list.js" defer></script>
-<!--  <script src="/js/shorts/list-scroll.js" defer></script>-->
+  <script src="/js/shorts/list-scroll.js" defer></script>
+
 </head>
 
 <body>
-<!--gap 오버라이딩 필요 스마트폰 pb 있고, 테블릿 pc 업게 하기 -->
 
-<!--    dsff-->
-<!--    dsff-->
-<!--    dsff-->
 <main
         layout:fragment="main"
         class="min-w:7 px:3 pb:10 md:pb:0 lg:pb:0 flex-grow:1"
@@ -270,7 +120,8 @@
             </li>
 
 
-            <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id ne s.userId}">
+            <li th:if="${#authentication.principal ne 'anonymousUser' and #authentication.principal.id ne s.userId}"
+            >
               <button>
                     <span class="va:middle deco deco-size:3 icon:share_fat w:100p">
                       신고하기
@@ -440,23 +291,15 @@
       </section>
 
       <section
-              class="comment-group box-shadow-custom bg-color:sub-1 translate-x-18px mt:2 d:none h:auto d:flex fl-dir:column bd-radius:6 p:3 lg:pos:absolute lg:bottom:0 lg:right:-7 lg:border lg:w:7 zi:4"
+              class="comment-group gap:1 box-shadow-custom bg-color:sub-1 translate-x-18px mt:2 d:none h:auto d:flex fl-dir:column bd-radius:6 p:3 lg:pos:absolute lg:bottom:0 lg:right:-7 lg:border lg:w:7 zi:4"
       >
         <h1 class="d:none">북쇼츠 댓글</h1>
         <div
-                class="icon icon:x cursor:pointer comment-close rg-comment-hover"
-        ></div>
-        <div class="comments color-base-9"></div>
+                class="icon icon:x cursor:pointer comment-close rg-comment-hover flex-shrink:0 "
+        >sdf</div>
+        <div class="comments color-base-9   fl-grow:1"></div>
 
-        <!--          댓글 페이징 일단 제외 -->
-        <!--          <section class="d:flex jc:center mt:4">-->
-        <!--            <h1 class="d:none">댓글 페이저1</h1>-->
-        <!--            <ul class="n-pager">-->
-        <!--              <li class="active"><a>1</a></li>-->
-        <!--              <li><a>2</a></li>-->
-        <!--              <li><a>3</a></li>-->
-        <!--            </ul>-->
-        <!--          </section>-->
+
         <div>
           <form class="d:flex mt:2 ai:center" method="post">
                 <textarea

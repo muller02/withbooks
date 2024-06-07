@@ -22,4 +22,8 @@ public interface BookshortsViewRepository {
     // admin/user
     List<BookshortsView> findByUserId(Long userId, Integer size, Integer offset);
     Integer count(Long userid);
+
+
+
+
 }
