@@ -339,7 +339,7 @@ function getCommentList(shortsId, comments, getCommentCount) {
               </button>
               <ul class="dropdown-list w:2 comment-modal-transform comment-dropdown-list">
                 <li>
-                  <button class="va:middle delete-comment text-align:center color:accent-2" data-commentId="${cmt.id}">
+                  <button class="va:middle  text-align:center color:accent-2" data-commentId="${cmt.id}">
                     삭제하기
                   </button>
                 </li>

@@ -1,27 +1,27 @@
 .comment-group {
-  height: 850px;
+   max-height: 543px !important;
 }
 
 /* .comments {
-  scroll-behavior: auto;
-  overflow-y: scroll;
+ scroll-behavior: auto;
+ overflow-y: scroll;
 } */
-.comments-scroll {
+.comments {
   scroll-behavior: smooth;
   overflow-x: hidden;
   overflow-y: scroll; /* 세로 스크롤 사용 */
 }
 
 /* 스크롤바의 폭 너비 */
-.comments-scroll::-webkit-scrollbar {
+.comments::-webkit-scrollbar {
   width: 4px;
 }
 
-.comments-scroll::-webkit-scrollbar-thumb {
+.comments::-webkit-scrollbar-thumb {
   background: rgba(153, 153, 153); /* 스크롤바 색상 color-base-5*/
   border-radius: 12px; /* 스크롤바 둥근 테두리 */
 }
 
-.comments-scroll::-webkit-scrollbar-track {
+.comments::-webkit-scrollbar-track {
   background: rgba(246, 246, 247, 0.1); /*스크롤바 뒷 배경 색상*/
 }

@@ -24,4 +24,8 @@ public interface BookshrotsService {
 
 
     void edit(Long sid, String content);
+
+    // 해당 쇼츠가 해당 유저가 쓴 글인지 확인
+    Integer getShortsByUserId(Long userId, Long shortsId);
+
 }

@@ -27,4 +27,10 @@
 		update shorts set content = #{content} where id =#{sid}
 	</update>
 
+	<select id="findByUserIdShortsId">
+
+		select count(*) from shorts where user_id =#{userId} and id = #{shortsId};
+
+	</select>
+
 </mapper>

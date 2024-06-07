@@ -79,6 +79,7 @@ public class BookshortsServiceImp  implements  BookshrotsService{
 
     @Override
     public BookshortsView getById(Long shortsId, Long userId) {
+
         return shortsViewRepository.findById(shortsId, userId);
     }
     
@@ -99,6 +100,12 @@ public class BookshortsServiceImp  implements  BookshrotsService{
     @Override
     public void edit(Long sid, String content) {
         repository.update(sid,content);
+    }
+
+    @Override
+    public Integer getShortsByUserId(Long userId, Long shortsId) {
+        return repository.findByUserIdShortsId(userId,shortsId);
+
     }
 
 

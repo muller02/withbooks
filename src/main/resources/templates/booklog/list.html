@@ -75,7 +75,7 @@
                     </div>
 
                     <form action="/booklog/deleteAllByIds" method="post" id="idsForm">
-                        <div class="booklog-list d:flex flex-wrap:wrap justify-content:flex-start">
+                        <div class="booklog-list d:flex flex-wrap:wrap md:justify-content:flex-start ">
                             <section class="jc:center ai:center p:3 m:3" th:each="l: ${list}">
                                 <div>
                                     <input type="hidden" th:value="${l.bookId}" class="book-id" />

@@ -29,7 +29,11 @@ public class BookShortsLikeController {
     boolean isLiked(@RequestParam(name = "si") Long shortsId, @AuthenticationPrincipal CustomUserDetails userDetails){
 
 
+        if(userDetails ==null){
+            return false;
+        }
         Long userId = null;
+
         if(userDetails != null)
             userId = userDetails.getId();;
 
@@ -48,6 +52,7 @@ public class BookShortsLikeController {
     @PostMapping
     public ShortsLike  add(@RequestParam(name = "si") Long shortsId, @AuthenticationPrincipal CustomUserDetails userDetails){
         System.out.println("Asdfsfd");
+
 
 
         System.out.println("포스트 요청 ");
@@ -75,7 +80,10 @@ public class BookShortsLikeController {
     public int delete(@RequestParam(name = "si") Long shortsId, @AuthenticationPrincipal CustomUserDetails userDetails){
 
         System.out.println("딜리트 요청 ");
+
         Long userId = null;
+
+
         if(userDetails != null)
             userId = userDetails.getId();;
 
