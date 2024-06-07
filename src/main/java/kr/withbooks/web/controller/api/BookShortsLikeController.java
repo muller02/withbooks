@@ -29,7 +29,11 @@ public class BookShortsLikeController {
     boolean isLiked(@RequestParam(name = "si") Long shortsId, @AuthenticationPrincipal CustomUserDetails userDetails){
 
 
+        if(userDetails ==null){
+            return false;
+        }
         Long userId = null;
+
         if(userDetails != null)
             userId = userDetails.getId();;
 
@@ -50,8 +54,6 @@ public class BookShortsLikeController {
         System.out.println("Asdfsfd");
 
 
-        if(userDetails == null)
-            return  null;
 
         System.out.println("포스트 요청 ");
         Long userId = null;
