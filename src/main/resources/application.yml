@@ -10,3 +10,10 @@ spring:
 
   application:
     name: withbooks
+
+
+
+
+fileupload:
+  contextPath: /home/withbooks/webapps/image/
+  

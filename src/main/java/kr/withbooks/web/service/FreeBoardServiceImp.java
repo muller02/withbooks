@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -23,6 +24,9 @@ public class FreeBoardServiceImp implements  FreeBoardService{
 
     @Autowired
     private FreeAttachmentRepository freeAttachmentRepository;
+
+    @Value("${fileupload.contextPath}")
+    private String contextPath;
     
 
     @Override
@@ -62,12 +66,13 @@ public class FreeBoardServiceImp implements  FreeBoardService{
             }
 
 
-            // 이미지 파일을 서버에 저장
-            // 서버에 이미지를 저장할 경로를 구하기
-            String realPath = request
-                    .getServletContext()
-                    .getRealPath("/image/free-board/" + String.valueOf(boardId));
-
+            // // 이미지 파일을 서버에 저장
+            // // 서버에 이미지를 저장할 경로를 구하기
+            // String realPath = request
+            //         .getServletContext()
+            //         .getRealPath("/image/free-board/" + String.valueOf(boardId));
+            
+            String realPath = contextPath + String.valueOf(boardId);
 
             File dir = new File(realPath);
             if(!dir.exists())
@@ -77,6 +82,7 @@ public class FreeBoardServiceImp implements  FreeBoardService{
             // 서버에 이미지를 저장
             for(MultipartFile img : imgs){
                 String pathToSave = realPath + File.separator + img.getOriginalFilename();
+
                 File imgFile = new File(pathToSave);
 
                 try {
@@ -115,10 +121,12 @@ public class FreeBoardServiceImp implements  FreeBoardService{
         if(!imgs[0].isEmpty())
         {
 
-            // 서버에 이미지를 저장할 경로를 구하기
-             String realPath = request
-                    .getServletContext()
-                    .getRealPath("/image/free-board/" + String.valueOf(boardId));
+            // // 서버에 이미지를 저장할 경로를 구하기
+            //  String realPath = request
+            //         .getServletContext()
+            //         .getRealPath("/image/free-board/" + String.valueOf(boardId));
+
+            String realPath = contextPath + String.valueOf(boardId);
     
             File dir = new File(realPath);
             if(!dir.exists())
