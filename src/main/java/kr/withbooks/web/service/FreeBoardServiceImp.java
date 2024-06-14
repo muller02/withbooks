@@ -72,7 +72,7 @@ public class FreeBoardServiceImp implements  FreeBoardService{
             //         .getServletContext()
             //         .getRealPath("/image/free-board/" + String.valueOf(boardId));
             
-            String realPath = contextPath + String.valueOf(boardId);
+            String realPath = contextPath + "free-board" + File.separator + String.valueOf(boardId);
 
             File dir = new File(realPath);
             if(!dir.exists())
@@ -126,7 +126,7 @@ public class FreeBoardServiceImp implements  FreeBoardService{
             //         .getServletContext()
             //         .getRealPath("/image/free-board/" + String.valueOf(boardId));
 
-            String realPath = contextPath + String.valueOf(boardId);
+            String realPath = contextPath + "free-board" + File.separator + String.valueOf(boardId);
     
             File dir = new File(realPath);
             if(!dir.exists())

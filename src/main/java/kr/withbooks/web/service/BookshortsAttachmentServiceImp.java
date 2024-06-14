@@ -6,6 +6,7 @@ import java.util.List;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import kr.withbooks.web.entity.BookshortsAttachment;
@@ -18,20 +19,29 @@ public class BookshortsAttachmentServiceImp implements BookshortsAttachmentServi
     @Autowired
     private BookshortsAttachmentRepository repository;
 
+    @Value("${fileupload.contextPath}")
+    private String contextPath;
+
+
     @Override
     public void add(List<MultipartFile> files, HttpServletRequest request, Long shortsId) {
 
 
         String fileName = null;
+        System.out.println("파일이름 = " + files.size());
 
         for(int i=0; i<files.size(); i++){
+
 
             if (!files.get(i).isEmpty()) {
 
                 fileName = files.get(i).getOriginalFilename();
+                System.out.println("파파파일 이름 = " + fileName);
 
-                String path = "/image/shorts";
-                String realPath = request.getServletContext().getRealPath(path);
+                 //                String path = "/image/shorts";
+                //                String realPath = request.getServletContext().getRealPath(path);
+                String realPath = contextPath  + "shorts";
+
                 File file = new File(realPath);
                 if(!file.exists())
                     file.mkdirs();
@@ -41,7 +51,8 @@ public class BookshortsAttachmentServiceImp implements BookshortsAttachmentServi
                 try {
                     files.get(i).transferTo(filePath);
                 } catch (IOException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
+
                 }
 
 
@@ -78,9 +89,12 @@ public class BookshortsAttachmentServiceImp implements BookshortsAttachmentServi
 
 
                 // 서버에 이미지를 저장할 경로를 구하기
-                String realPath = request
-                        .getServletContext()
-                        .getRealPath("/image/shorts/" + imgPath);
+//                String realPath = request
+//                        .getServletContext()
+//                        .getRealPath("/image/shorts/" + imgPath);
+
+                String realPath = contextPath  + "shorts/"+imgPath;
+
 
                 File file = new File(realPath);
                 if (file.exists()) {
