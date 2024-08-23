@@ -1,0 +1,22 @@
+spring: 
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: 
+    username: 
+    password: 
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: mappers/*Mapper.xml
+  type-aliases-package: kr.withbooks.web.entity
+
+logging:
+  level: 
+    kr:
+      withbooks:
+        web:
+          repository: DEBUG
+
+aladdin-key:
+  value: 
