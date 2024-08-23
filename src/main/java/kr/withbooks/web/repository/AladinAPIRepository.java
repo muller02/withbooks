@@ -10,13 +10,16 @@ import java.net.URLEncoder;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Component
+@Slf4j
 public class AladinAPIRepository {
     // field
     private static String apiUrl;
 
     // final 변수
-    private static final String PRE_URL = "http://www.aladdin.co.kr/ttb/api/";
+    private static final String PRE_URL = "http://www.aladin.co.kr/ttb/api/";
 	private static final String SUF_URL = ".aspx?";
 
 	public static final String Item_List= "ItemList";
@@ -93,8 +96,6 @@ public class AladinAPIRepository {
 
 		apiUrl = builder.toString();
 
-		// System.out.println("url = "+ apiUrl);
-
 		return apiUrl;
 	}
 
@@ -135,7 +136,7 @@ public class AladinAPIRepository {
 						// System.out.println("JSON Response:\n" + jsonResponse);
 
 					} else {
-						System.out.println("HTTP request failed with response code: " + responseCode);
+						log.info("HTTP request failed with response code {} " + responseCode);
 					}
 					// HttpURLConnection 닫기
 					connection.disconnect();
@@ -143,12 +144,6 @@ public class AladinAPIRepository {
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				
-			// JsonParser jp = new JsonParser();
-			// return jp.parser(jsonResponse, cList);
 			return jsonResponse;
-			
 		}
-    
-
 }
