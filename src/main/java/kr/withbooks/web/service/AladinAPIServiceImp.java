@@ -49,6 +49,5 @@ public class AladinAPIServiceImp implements AladinAPIService {
         Integer result = jsonparser.parser(list, jsonResponse);
         
         return result;
-
     }
 }

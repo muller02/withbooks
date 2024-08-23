@@ -16,9 +16,11 @@ import kr.withbooks.web.entity.Category;
 import kr.withbooks.web.service.AladinAPIService;
 import kr.withbooks.web.service.BookService;
 import kr.withbooks.web.service.CategoryService;
+import lombok.extern.slf4j.Slf4j;
 
 @Controller("adminBookController")
 @RequestMapping("admin/book")
+@Slf4j
 public class BookController {
     
     @Autowired
@@ -37,16 +39,10 @@ public class BookController {
                         @RequestParam Map<String, String> params,
                         Model model){
 
-        System.out.println("=============================파람스 : "+params.toString());
-        
         List<Book> list = new ArrayList<>();
         // select box로 제목, 저자, ISBN13으로 검색하도록 한다.
         // 이때, 해당 카테고리는 queryType으로 받고, 검색어는 query로 받는다.
-
         // 카테고리 필터링 -> categoryId로 받는다.
-
-        // 사이즈 및 요청 페이지 -> 추후 처리
-
         int count = 0;
         if(!params.containsKey("page")){
             int page = 1;
@@ -63,12 +59,6 @@ public class BookController {
         return "admin/book/list";
     }
 
-    // @GetMapping("reg")
-    // public String reg(){
-    //     return "admin/book/reg";
-    // }
-
-
     // =====================================================================
     // Aladdin API
     /*
@@ -76,7 +66,6 @@ public class BookController {
         sort 2 = Query, QueryType
         sort 3 = ItemId, ItemIdType
     */
-
     @GetMapping("aladinList")
     public String aladinList(
                            @RequestParam(name = "sort", required = false) Integer sort
@@ -86,33 +75,19 @@ public class BookController {
                            ,@RequestParam(name = "p", required = false, defaultValue = "1") Integer page
                             ,Model model) {
 
-        System.out.println("sort = "+sort);
-        System.out.println("qt = "+queryType);
-        System.out.println("q = "+query);
-        System.out.println("i = "+itemId);
-        System.out.println("p = "+page);
-        
         if(sort == null)
             return "admin/book/aladin-list";
 
         List<Book> list = new ArrayList<>();
         Integer totalResults = apiService.getList(list, sort, queryType, query, itemId, page);
         
-        System.out.println("======================================");
-        // System.out.println(list);
-        System.out.println(totalResults);
         double lastNum = 0;
-
         if(totalResults!=null){
-
             if(totalResults%50 > 0)
                 lastNum = Math.floor(totalResults/50) + 1;
             else
                 lastNum = totalResults/50;
-            
         }
-        System.out.println(lastNum);
-        System.out.println("======================================");
 
         model.addAttribute("list", list);
         model.addAttribute("totalResults", totalResults);
@@ -124,8 +99,5 @@ public class BookController {
         model.addAttribute("lastNum", lastNum);
 
         return "admin/book/aladin-list";
-
     }
-
-
 }

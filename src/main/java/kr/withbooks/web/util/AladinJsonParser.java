@@ -10,10 +10,12 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
 import kr.withbooks.web.entity.Book;
+import lombok.extern.slf4j.Slf4j;
 
 @Component
+@Slf4j
 public class AladinJsonParser {
-
+    
 	public Integer parser(List<Book> list, String jsonResponse){
 		
         // JSON 문자열을 JSONObject로 변환
@@ -21,15 +23,15 @@ public class AladinJsonParser {
 
         // 에러코드가 뜬 경우
         if(jsonObject.has("errorCode")){
-            System.out.println("에러코드 >>"+jsonObject.getInt("errorCode"));
-            System.out.println("에러메세지 >>"+jsonObject.getString("errorMessage"));
+            log.info("ErrorCode {}"+jsonObject.getInt("errorCode"));
+            log.info("ErrorMessage {}"+jsonObject.getString("errorMessage"));
             return null;
         }
 
         // 검색 정보가 없는 경우
         int totalResults = jsonObject.getInt("totalResults");
         if(totalResults==0){
-            System.out.println("검색 정보가 없음");
+            log.info("No Searched Keyword's Response");
             return null;
         }
         
@@ -72,14 +74,9 @@ public class AladinJsonParser {
             } catch (JSONException | ParseException e) {
                 e.printStackTrace();
             }
-
             // List<Book>에 책 정보 추가
             list.add(book);
         }
-
         return totalResults;
 	}
-	
-	
-
 }
