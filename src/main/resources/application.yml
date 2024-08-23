@@ -11,8 +11,13 @@ spring:
   application:
     name: withbooks
 
-
-
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operationsSorter: method
+    tagsSorter: name
 
 fileupload:
   contextPath: /home/withbooks/webapps/image/
