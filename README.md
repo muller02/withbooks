@@ -46,3 +46,7 @@ spring:
 aladdin-key:
   value: < aladdin ttb-key >
 ```
+
+## Swagger API
+- [Swagger](http://localhost:8080/swagger-ui/index.html) <br/>
+![image](https://github.com/user-attachments/assets/88ada740-b301-46c2-8396-4f8f644786e5)
