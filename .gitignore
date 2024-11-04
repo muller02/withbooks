@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 build/
+*.yml
 
 ### IntelliJ IDEA ###
 .idea
