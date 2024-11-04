@@ -1,23 +1,25 @@
+# Documentation
 HELP.md
+
+# Maven 및 Gradle 빌드 파일 및 폴더 무시
 target/
+build/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-build/
+
+# 설정 파일 무시
 *.yml
 
-### IntelliJ IDEA ###
-.idea
+# IntelliJ IDEA 설정 파일
+.idea/
 *.iws
 *.iml
 *.ipr
 
-### VS Code ###
+# VS Code 설정 파일
 .vscode/
 
-### Java ###
-# Compiled class file
+# Java 컴파일된 파일 및 로그 파일
 *.class
-
-# Log file
 *.log
